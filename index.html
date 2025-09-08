@@ -1,0 +1,1071 @@
+<!doctype html>
+<html lang="pt">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>LuxBoost — WL, Division Rivals & Pro Clubs • ES/PT/EN (PC)</title>
+  <meta name="description" content="LuxBoost: WL (Ranks 1–5), Division Rivals Boost, e Pro Clubs até 120 (PC) para ES/PT. VPN local, prints/stream e prazos claros."/>
+  <meta name="color-scheme" content="dark light" />
+  <meta name="theme-color" content="#0a1020" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+  <style>
+    /* ===== Design Tokens ===== */
+    :root{
+      --bg:#05070d; --ink:#eaf2ff; --mut:#9fb0c9; --card:#0a1020; --panel:#0c1226; --br:rgba(255,255,255,.10);
+      --g1:#7dd3fc; --g2:#22c55e; --hi:#a78bfa; --danger:#fb7185; --ok:#34d399; --shadow:0 12px 40px rgba(0,0,0,.35);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0;color:var(--ink);font:16px/1.65 Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif;
+      background:
+        radial-gradient(1200px 700px at 110% -10%, #13203a 0%, transparent 60%),
+        radial-gradient(900px 600px at -10% 120%, #0f2316 0%, transparent 60%),
+        var(--bg);
+    }
+    a{color:inherit}
+    .wrap{width:min(1200px,92%);margin:0 auto}
+
+    /* ===== Header ===== */
+    .hdr{position:sticky;top:0;z-index:50;border-bottom:1px solid var(--br);
+      background:rgba(5,8,14,.65);backdrop-filter:saturate(160%) blur(10px)}
+    .nav{display:flex;align-items:center;justify-content:space-between;padding:.8rem 0}
+    .brand{display:flex;align-items:center;gap:.65rem;color:var(--ink);text-decoration:none;font-weight:900}
+    .logo{width:80px;height:80px}
+    .links{display:flex;align-items:center;gap:.9rem;flex-wrap:wrap}
+    .links a{color:var(--mut);text-decoration:none;font-weight:800}
+    .links a:hover{color:var(--ink)}
+    .hdr-ctls{display:flex;align-items:center;gap:.5rem}
+    .btn-ico{display:inline-flex;align-items:center;gap:.4rem;padding:.45rem .6rem;border-radius:10px;border:1px solid var(--br);background:rgba(255,255,255,.04); cursor: pointer;}
+    .select{background:var(--panel);color:var(--ink);border:1px solid var(--br);border-radius:10px;padding:.45rem .6rem}
+
+    /* ===== Buttons ===== */
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:.55rem;padding:.7rem .9rem;border-radius:12px;border:1px solid var(--br);
+      background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.03)); color:var(--ink); font-weight:800; text-decoration:none;
+      transition:transform .15s ease, box-shadow .15s ease, opacity .15s ease; cursor: pointer;}
+    .btn:hover{transform:translateY(-2px); box-shadow:var(--shadow)}
+    .btn-primary{background:linear-gradient(135deg,var(--g1),var(--g2)); border-color:transparent; color:#06130c}
+    .btn-ghost{background:transparent}
+    button:disabled{opacity:.5;cursor:not-allowed}
+    button:disabled:hover{transform:none;box-shadow:none}
+
+    /* ===== Hero ===== */
+    .hero{padding:clamp(40px, 8vw, 80px) 0;}
+    .hero-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:26px;align-items:center}
+    .title{font-size:clamp(38px, 5vw, 60px);line-height:1.1;font-weight:900;margin:0}
+    .accent{background:linear-gradient(135deg,var(--g1),var(--g2));-webkit-background-clip:text;background-clip:text;color:transparent}
+    .lead{color:var(--mut);margin-top:16px}
+    .hero .row{display:flex;gap:.8rem;margin-top:2rem}
+    .ticks{color:var(--mut);display:grid;gap:.35rem;margin:1.5rem 0 0;padding:0;list-style:none}
+    .hero-card{position:relative;border-radius:20px;overflow:hidden;background:linear-gradient(160deg,#0a1228,#0b1530);border:1px solid var(--br);box-shadow:0 16px 44px rgba(0,0,0,.32);}
+    .hero-card img { width: 100%; height: auto; display: block; }
+    .hero-card .score{font-size:74px;font-weight:900;letter-spacing:.5px}
+    .hero-card .tag{position:absolute;top:10px;left:10px;background:rgba(255,255,255,.06);border:1px solid var(--br);padding:.4rem .7rem;border-radius:999px;font-weight:900}
+    .hero-card .plat{position:absolute;bottom:10px;right:12px;color:var(--mut);font-weight:800}
+
+    /* ===== Sections ===== */
+    .sec{padding:clamp(30px, 6vw, 52px) 0;}
+    .alt{background:linear-gradient(180deg,transparent,rgba(255,255,255,.04))}
+    h2{font-size:clamp(24px, 4vw, 30px);margin:0 0 12px}
+    .sub{margin:20px 0 10px}
+
+    /* ===== Grid & Cards ===== */
+    .grid{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));align-items:stretch}
+    .card{position:relative; display:flex; flex-direction:column; gap:.6rem; height:100%;
+      padding:18px; border-radius:18px; border:1px solid var(--br);
+      background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.03));
+      box-shadow:0 10px 28px rgba(0,0,0,.28); transition: all .2s ease;}
+    .card:hover{box-shadow:0 16px 44px rgba(0,0,0,.38); transform:translateY(-2px)}
+    .card h4{margin:0; font-size:18px}
+    .price{font-size:24px;font-weight:900;margin:.1rem 0 .4rem}
+    .feat{list-style:none; margin:0 0 .4rem; padding:0; color:var(--mut); display:grid; gap:.25rem; font-size:14px}
+    .pill{align-self:flex-start; display:inline-flex; align-items:center; gap:.4rem; font-size:12px; font-weight:900; letter-spacing:.2px;
+      background:linear-gradient(135deg,var(--g1),var(--g2)); color:#04130a; border-radius:999px; padding:.28rem .6rem}
+    .rank-badge{position:absolute; top:10px; right:10px; font-size:12px; padding:.2rem .5rem; border:1px solid var(--br); border-radius:10px; color:var(--mut)}
+
+    .card-body{display:flex;flex-direction:column;gap:.6rem;flex-grow:1}
+    .card-img{width:100%; height:auto; aspect-ratio: 1/1; object-fit:cover; border-radius:12px; margin-bottom: .6rem;}
+    .actions{margin-top:auto; display:flex; flex-wrap:wrap; gap:.5rem}
+
+    .testimonial-author {
+      margin-top: .5rem;
+      padding-top: .5rem;
+      border-top: 1px solid var(--br);
+      font-weight: 800;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 14px;
+    }
+    .testimonial-author span { color: #f59e0b; }
+
+    .testimonial-img {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      border-radius: 12px;
+      margin-bottom: 1rem;
+    }
+
+    /* Testimonial Slider */
+    .testimonial-slider-container { position: relative; }
+    .testimonial-slider {
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: calc((100% / 3) - 12px);
+      gap: 18px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .testimonial-slider::-webkit-scrollbar { display: none; }
+    .testimonial-slider .card { scroll-snap-align: start; }
+    .slider-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 10;
+      background-color: rgba(10, 16, 32, 0.7);
+      color: white;
+      border: 1px solid var(--br);
+      border-radius: 50%;
+      width: 44px;
+      height: 44px;
+      font-size: 24px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(5px);
+    }
+    .slider-btn.prev { left: -22px; }
+    .slider-btn.next { right: -22px; }
+
+    /* Layout para calculadora de Rivals */
+    .rivals-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 2rem;
+      align-items: center;
+    }
+    .rivals-grid img {
+      width: 100%;
+      border-radius: 12px;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+    }
+    .contact-grid{
+        display:grid;
+        grid-template-columns:1fr 1fr;
+        align-items:flex-start;
+        gap:18px;
+    }
+
+    /* Rewards accordion */
+    details.rewards{margin-top:.4rem}
+    details.rewards summary{cursor:pointer; font-weight:900}
+    .rewards ul{margin:.4rem 0 0; padding-left:18px; color:var(--mut); font-size:13px; columns:2; column-gap:24px}
+    
+    /* ===== Cart (Drawer) ===== */
+    .drawer{position:fixed;top:0;right:-400px;width:min(380px, 95vw);height:100%;background:linear-gradient(180deg,#0e162a,#0c1426);border-left:1px solid var(--br);box-shadow:-10px 0 40px rgba(0,0,0,.45);transition:right .25s ease;z-index:60;display:flex;flex-direction:column}
+    .drawer.open{right:0}
+    .drawer-head{display:flex;justify-content:space-between;align-items:center;padding:14px;border-bottom:1px solid var(--br)}
+    .drawer-body{flex:1;overflow:auto;padding:12px 14px;display:grid;gap:10px; align-content: flex-start;}
+    .item{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;border:1px solid var(--br);background:rgba(255,255,255,.05);border-radius:12px;padding:10px}
+    .qty{display:flex;gap:6px;align-items:center}
+    .qty button{border:1px solid var(--br);background:#0c1326;color:var(--ink);border-radius:8px;padding:6px 10px; cursor:pointer;}
+    .drawer-foot{border-top:1px solid var(--br);padding:12px 14px;display:grid;gap:8px}
+    .sum{display:flex;align-items:center;justify-content:space-between}
+    .backdrop{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:55; opacity: 0; visibility: hidden; transition: all .25s ease;}
+    .backdrop:not([hidden]){visibility: visible; opacity: 1;}
+    
+    /* ===== FAQ ===== */
+    #faq details{border-bottom: 1px solid var(--br); padding: 12px 0;}
+    #faq summary{cursor: pointer; font-weight: 800;}
+    
+    /* ===== Helpers ===== */
+    .muted{color:var(--mut)}
+    .w-100{width:100%}
+
+    /* Gemini Feature Styles */
+    #generate-msg-btn.loading, #generate-welcome-btn.loading, #ask-ai-btn.loading {
+        cursor: wait;
+        opacity: .7;
+    }
+    #generate-msg-btn.loading span::after, #generate-welcome-btn.loading span::after, #ask-ai-btn.loading span::after {
+        content: '...';
+        display: inline-block;
+        animation: dots 1.4s infinite;
+        width: 1.2em;
+        text-align: left;
+    }
+    @keyframes dots {
+        0% { content: ''; }
+        25% { content: '.'; }
+        50% { content: '..'; }
+        75% { content: '...'; }
+    }
+    .ai-coach-io {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    .ai-answer-box {
+      padding: 1rem;
+      background: var(--bg);
+      border: 1px solid var(--br);
+      border-radius: 12px;
+      color: var(--mut);
+      line-height: 1.6;
+    }
+    .ai-answer-box p { margin: 0; }
+
+    /* ===== Footer ===== */
+    .ftr {
+      padding: 2rem 0;
+      border-top: 1px solid var(--br);
+      background: var(--bg);
+      text-align: center;
+      color: var(--mut);
+      font-size: 14px;
+    }
+    .ftr a { text-decoration: underline; }
+
+    /* ===== Responsive Adjustments ===== */
+    @media (max-width: 980px) {
+        .hero-grid{grid-template-columns:1fr; text-align: center;}
+        .hero .row{justify-content:center}
+        .rivals-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+        .testimonial-slider { grid-auto-columns: calc((100% / 2) - 9px); }
+    }
+
+    @media (max-width: 768px) {
+        .nav { flex-direction: column; gap: 1rem; }
+        .links { order: 3; justify-content: center; width: 100%;}
+        .brand { order: 1; }
+        .hdr-ctls { order: 2; }
+        .logo { width: 60px; height: 60px; }
+        .contact-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 680px) {
+        .rewards ul{columns:1}
+        .testimonial-slider { grid-auto-columns: 90%; }
+        .slider-btn.prev { left: 5px; }
+        .slider-btn.next { right: 5px; }
+    }
+
+  </style>
+</head>
+<body>
+  <!-- ===== Header ===== -->
+  <header class="hdr">
+    <div class="wrap nav">
+      <a class="brand" href="#home" aria-label="LuxBoost Home">
+        <img src="https://i.imgur.com/6L6zKta.png" alt="LuxBoost Logo" class="logo">
+      </a>
+      <nav class="links" aria-label="principal">
+        <a href="#precos" data-i18n="menu.prices">preços</a>
+        <a href="#rivals" data-i18n="menu.rivals">division rivals</a>
+        <a href="#pc" data-i18n="menu.pc">pro clubs</a>
+        <a href="#fc26" data-i18n="menu.fc26">FC 26</a>
+        <a href="#como" data-i18n="menu.how">como funciona</a>
+        <a href="#faq" data-i18n="menu.faq">faq</a>
+        <a href="#contato" data-i18n="menu.contact">contato</a>
+        <a href="#termos" data-i18n="menu.terms">Termos</a>
+      </nav>
+      <div class="hdr-ctls">
+        <button class="btn-ico" onclick="toggleCart()" aria-label="Abrir carrinho">🛒 <span id="cart-count">0</span></button>
+        <a id="wa-top" class="btn-ico" target="_blank" rel="noopener" aria-label="WhatsApp">💬</a>
+        <a id="ig-top" class="btn-ico" target="_blank" rel="noopener" aria-label="Instagram">📸</a>
+        <select id="lang-select" class="select" aria-label="Idioma">
+          <option value="pt">PT</option>
+          <option value="es">ES</option>
+          <option value="en">EN</option>
+        </select>
+      </div>
+    </div>
+  </header>
+
+  <!-- Drawer: Carrinho -->
+  <aside id="cart" class="drawer" aria-hidden="true">
+    <div class="drawer-head">
+      <strong data-i18n="cart.title">carrinho</strong>
+      <button class="btn-ico" onclick="toggleCart()" aria-label="Fechar">✖</button>
+    </div>
+    <div id="cart-items" class="drawer-body"></div>
+    <div class="drawer-foot">
+      <div class="sum"><span data-i18n="cart.total">total:</span><strong id="cart-total">0 €</strong></div>
+      <button class="btn btn-primary w-100" onclick="checkoutWA()" data-i18n="cart.checkout">finalizar pelo whatsapp</button>
+      <button class="btn w-100" onclick="clearCart()" data-i18n="cart.clear">limpar carrinho</button>
+    </div>
+  </aside>
+  <div id="backdrop" class="backdrop" onclick="toggleCart()" hidden></div>
+
+  <!-- ===== Hero ===== -->
+  <main>
+    <section class="hero" id="home">
+      <div class="wrap hero-grid">
+        <div>
+          <h1 class="title" data-i18n="hero.title">WL sem dor de cabeça • <span class="accent">Ranks 1–5, Rivals e Pro Clubs</span></h1>
+          <p class="lead" data-i18n="hero.lead">serviços profissionais para <strong>fc 26 (pc)</strong> em ES/PT/EN. vpn local, prints/stream e prazos claros.</p>
+          <div class="row">
+            <a href="#precos" class="btn btn-primary" data-i18n="hero.ctaPricing">ver preços</a>
+            <a href="#contato" class="btn btn-ghost" data-i18n="hero.ctaBook">reservar agora</a>
+          </div>
+          <ul class="ticks">
+            <li data-i18n="hero.trust1">✅ Vitórias garantidas na Weekend League (Ranks 1–5): alcance os melhores resultados sem estresse.</li>
+            <li data-i18n="hero.trust2">✅ Times e builds otimizadas: jogue sempre com a estratégia perfeita para cada partida.</li>
+            <li data-i18n="hero.trust3">✅ Coaching exclusivo: aprenda técnicas e segredos direto com jogadores profissionais.</li>
+            <li data-i18n="hero.trust4">✅ Suporte VIP e resposta imediata: atendimento rápido e personalizado via WhatsApp/Telegram.</li>
+          </ul>
+
+          <!-- ===== AI Welcome Generator ===== -->
+          <div class="ai-welcome-generator" style="margin-top: 2.5rem; padding: 1.5rem; background: var(--panel); border: 1px solid var(--br); border-radius: 16px; text-align: left; box-shadow: var(--shadow);">
+              <label for="gamer-tag" style="font-weight: bold; display: block; margin-bottom: .75rem;" data-i18n="ai_welcome.title">✨ Gere uma Mensagem de Boas-Vindas com IA</label>
+              <div style="display: flex; gap: .5rem;">
+                  <input id="gamer-tag" data-i18n-placeholder="ai_welcome.placeholder" placeholder="Insira o seu nome de jogador..." class="select" style="flex-grow: 1;">
+                  <button id="generate-welcome-btn" class="btn" onclick="generateWelcomeMessage()">
+                      <span data-i18n="ai_welcome.button">Gerar</span>
+                  </button>
+              </div>
+              <p id="welcome-output" class="muted" style="margin-top: 1rem; min-height: 50px; transition: color .3s;"></p>
+          </div>
+
+        </div>
+        <div class="hero-card" role="img" aria-label="Imagem de uma partida de FC 25">
+          <img src="https://i.imgur.com/4Ez3o22.jpeg" alt="Imagem ilustrativa de uma partida do FC 25.">
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== WL PRICING ===== -->
+    <section id="precos" class="sec">
+      <div class="wrap">
+        <h2 data-i18n="pricing.title">preços — weekend league (champions finals)</h2>
+        <p class="muted" data-i18n="pricing.subtitle">reserve por whatsapp ou <strong>adicione ao carrinho</strong>.</p>
+
+        <div class="grid">
+          <!-- Rank 1 -->
+          <article class="card">
+            <img src="https://i.imgur.com/kjRiEoE.png" alt="Logótipo do Rank 1" style="width: 48px; height: 48px; align-self: flex-start;">
+            <span class="pill" data-i18n="pricing.best">mais pedido</span>
+            <span class="rank-badge">Rank 1</span>
+            <div class="card-body">
+              <h4 data-i18n="pricing.wl_r1_title">WL Rank 1</h4>
+              <div class="price" data-price="80">80 €</div>
+              <ul class="feat"><li data-i18n="pricing.wlFeat1">garantia 18+ vitórias</li><li data-i18n="pricing.wlFeat2">vpn + prints/stream</li></ul>
+              <div class="actions">
+                <a class="btn btn-primary" href="#" data-wa-key="pricing.wl_r1_title" onclick="return book(this)" data-i18n="cta.book">reservar</a>
+                <button class="btn" onclick="addToCart('pricing.wl_r1_title', 80)" data-i18n="cta.add">adicionar</button>
+              </div>
+              <details class="rewards"><summary data-i18n="pricing.rewards_r1">premiações rank 1</summary>
+                <ul><li>200k coins</li><li>1× base icon pack</li><li>3× player pick TOTW</li><li>85+ ×10</li><li>84+ ×10</li><li>89+ ×2</li><li>82+ ×30</li></ul>
+              </details>
+            </div>
+          </article>
+          <!-- Rank 2 -->
+          <article class="card">
+            <img src="https://i.imgur.com/YZf2CXQ.png" alt="Logótipo do Rank 2" style="width: 48px; height: 48px; align-self: flex-start;">
+            <span class="rank-badge">Rank 2</span>
+            <div class="card-body">
+              <h4 data-i18n="pricing.wl_r2_title">WL Rank 2</h4>
+              <div class="price" data-price="60">60 €</div>
+              <ul class="feat"><li data-i18n="pricing.wlFeat2">vpn + prints/stream</li><li data-i18n="pricing.common1">entrega no mesmo fim de semana</li></ul>
+              <div class="actions">
+                <a class="btn btn-primary" href="#" data-wa-key="pricing.wl_r2_title" onclick="return book(this)" data-i18n="cta.book">reservar</a>
+                <button class="btn" onclick="addToCart('pricing.wl_r2_title', 60)" data-i18n="cta.add">adicionar</button>
+              </div>
+              <details class="rewards"><summary data-i18n="pricing.rewards_r2">premiações rank 2</summary>
+                <ul><li>150k coins</li><li>1× hero pack</li><li>2× player pick TOTW</li><li>84+ ×10</li><li>87+ ×2</li><li>82+ ×25</li></ul>
+              </details>
+            </div>
+          </article>
+          <!-- Rank 3 -->
+          <article class="card">
+            <img src="https://i.imgur.com/VrbPI7Y.png" alt="Logótipo do Rank 3" style="width: 48px; height: 48px; align-self: flex-start;">
+            <span class="rank-badge">Rank 3</span>
+            <div class="card-body">
+              <h4 data-i18n="pricing.wl_r3_title">WL Rank 3</h4>
+              <div class="price" data-price="50">50 €</div>
+              <ul class="feat"><li data-i18n="pricing.common1">entrega no mesmo fim de semana</li><li data-i18n="pricing.common2">prints de resultados</li></ul>
+              <div class="actions">
+                <a class="btn btn-primary" href="#" data-wa-key="pricing.wl_r3_title" onclick="return book(this)" data-i18n="cta.book">reservar</a>
+                <button class="btn" onclick="addToCart('pricing.wl_r3_title', 50)" data-i18n="cta.add">adicionar</button>
+              </div>
+              <details class="rewards"><summary data-i18n="pricing.rewards_r3">premiações rank 3</summary>
+                <ul><li>110k coins</li><li>86+ base hero pack</li><li>2× player pick TOTW</li><li>2× 84+ ×10</li><li>88+ ×2</li><li>82+ ×25</li></ul>
+              </details>
+            </div>
+          </article>
+          <!-- Rank 4 -->
+          <article class="card">
+            <img src="https://i.imgur.com/nU8fxit.png" alt="Logótipo do Rank 4" style="width: 48px; height: 48px; align-self: flex-start;">
+            <span class="rank-badge">Rank 4</span>
+            <div class="card-body">
+              <h4 data-i18n="pricing.wl_r4_title">WL Rank 4</h4>
+              <div class="price" data-price="40">40 €</div>
+              <ul class="feat"><li data-i18n="pricing.common2">prints de resultados</li><li data-i18n="pricing.wl_feat_guarantee">garantia parcial</li></ul>
+              <div class="actions">
+                <a class="btn btn-primary" href="#" data-wa-key="pricing.wl_r4_title" onclick="return book(this)" data-i18n="cta.book">reservar</a>
+                <button class="btn" onclick="addToCart('pricing.wl_r4_title', 40)" data-i18n="cta.add">adicionar</button>
+              </div>
+              <details class="rewards"><summary data-i18n="pricing.rewards_r4">premiações rank 4</summary>
+                <ul><li>95k coins</li><li>1× rare gold pack</li><li>2× player pick TOTW</li><li>83+ ×10</li><li>86+ ×2</li><li>82+ ×20</li></ul>
+              </details>
+            </div>
+          </article>
+          <!-- Rank 5 -->
+          <article class="card">
+            <img src="https://i.imgur.com/sMsryOT.png" alt="Logótipo do Rank 5" style="width: 48px; height: 48px; align-self: flex-start;">
+            <span class="rank-badge">Rank 5</span>
+            <div class="card-body">
+              <h4 data-i18n="pricing.wl_r5_title">WL Rank 5</h4>
+              <div class="price" data-price="30">30 €</div>
+              <ul class="feat"><li data-i18n="pricing.common1">entrega no mesmo fim de semana</li><li data-i18n="pricing.common2">prints de resultados</li></ul>
+              <div class="actions">
+                <a class="btn btn-primary" href="#" data-wa-key="pricing.wl_r5_title" onclick="return book(this)" data-i18n="cta.book">reservar</a>
+                <button class="btn" onclick="addToCart('pricing.wl_r5_title', 30)" data-i18n="cta.add">adicionar</button>
+              </div>
+              <details class="rewards"><summary data-i18n="pricing.rewards_r5">premiações rank 5</summary>
+                <ul><li>80k coins</li><li>base hero pack</li><li>2× player pick TOTW</li><li>83+ ×10</li><li>87+ ×2</li><li>82+ ×20</li></ul>
+              </details>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== DIVISION RIVALS (Calculator + Benefits) ===== -->
+    <section id="rivals" class="sec alt">
+      <div class="wrap">
+        <h2 data-i18n="rivals.title">division rivals — calculadora de boosting</h2>
+        <div class="grid">
+          <article class="card" style="grid-column:1/-1">
+            <div class="card-body rivals-grid">
+              <div>
+                <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); align-items:flex-end;">
+                  <div>
+                    <label for="cur-div"><strong data-i18n="rivals.current">divisão atual</strong></label>
+                    <select id="cur-div" class="select w-100" style="margin-top:.4rem">
+                      <option value="10" data-i18n="div.10">Divisão 10</option><option value="9" data-i18n="div.9">Divisão 9</option><option value="8" data-i18n="div.8">Divisão 8</option><option value="7" data-i18n="div.7">Divisão 7</option><option value="6" data-i18n="div.6">Divisão 6</option>
+                      <option value="5" data-i18n="div.5">Divisão 5</option><option value="4" data-i18n="div.4">Divisão 4</option><option value="3" data-i18n="div.3">Divisão 3</option><option value="2" data-i18n="div.2">Divisão 2</option><option value="1" data-i18n="div.1">Divisão 1</option><option value="elite" data-i18n="div.elite">Elite</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label for="target-div"><strong data-i18n="rivals.target">divisão alvo</strong></label>
+                    <select id="target-div" class="select w-100" style="margin-top:.4rem">
+                      <option value="9" data-i18n="div.9">Divisão 9</option><option value="8" data-i18n="div.8">Divisão 8</option><option value="7" data-i18n="div.7">Divisão 7</option><option value="6" data-i18n="div.6">Divisão 6</option><option value="5" data-i18n="div.5">Divisão 5</option>
+                      <option value="4" data-i18n="div.4">Divisão 4</option><option value="3" data-i18n="div.3">Divisão 3</option><option value="2" data-i18n="div.2">Divisão 2</option><option value="1" data-i18n="div.1">Divisão 1</option><option value="elite" selected data-i18n="div.elite">Elite</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label><strong data-i18n="rivals.result">resultado</strong></label>
+                    <div class="card" style="margin-top:.4rem; padding: 12px;">
+                      <div><strong data-i18n="rivals.steps">divisões a subir:</strong> <span id="boost-count">0</span></div>
+                      <div><strong data-i18n="rivals.price">preço estimado:</strong> <span id="boost-price">0 €</span></div>
+                      <div class="muted" style="font-size:12px;margin-top:6px" data-i18n="rivals.note">tabela base: <strong>10 €</strong> por divisão (varia por urgência/high mmr).</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="actions" style="margin-top:12px">
+                  <button class="btn btn-primary" id="boost-add" data-i18n="rivals.add">adicionar ao carrinho</button>
+                  <a class="btn" id="boost-wa" target="_blank" rel="noopener" data-i18n="rivals.book">reservar por whatsapp</a>
+                </div>
+              </div>
+              <div>
+                <img src="https://i.imgur.com/rLDbJ0A.jpeg" alt="Imagem ilustrativa do Division Rivals">
+              </div>
+            </div>
+          </article>
+
+          <h3 data-i18n="rivals.benefits" style="grid-column: 1 / -1; margin-top: 1.5rem; margin-bottom: 0;">Vantagens do nosso serviço</h3>
+          <div class="card"><strong data-i18n="rivals.b_sec_title">segurança</strong><div class="muted" data-i18n="rivals.b_sec_desc">vpn local (ES/PT) + 2FA; só jogamos em sessão combinada.</div></div>
+          <div class="card"><strong data-i18n="rivals.b_comm_title">comunicação</strong><div class="muted" data-i18n="rivals.b_comm_desc">prints por bloco no WhatsApp/Telegram e opção de stream.</div></div>
+          <div class="card"><strong data-i18n="rivals.b_deadlines_title">prazos claros</strong><div class="muted" data-i18n="rivals.b_deadlines_desc">agendamento conforme sua agenda (janela diurna/noturna).</div></div>
+          <div class="card"><strong data-i18n="rivals.b_guarantee_title">garantia</strong><div class="muted" data-i18n="rivals.b_guarantee_desc">se não bater a <em>divisão alvo</em>, reembolso proporcional.</div></div>
+          <div class="card"><strong data-i18n="rivals.b_addons_title">add-ons</strong><div class="muted" data-i18n="rivals.b_addons_desc">prioridade (express) e proteção de MMR sob consulta.</div></div>
+          <div class="card"><strong data-i18n="rivals.b_payment_title">pagamento</strong><div class="muted" data-i18n="rivals.b_payment_desc">orçamento pela calculadora + fechamento no WhatsApp.</div></div>
+        </div>
+      </section>
+
+      <!-- ===== PRO CLUBS ===== -->
+      <section id="pc" class="sec">
+        <div class="wrap">
+          <h2 data-i18n="pricing.pc">pro clubs (até nível 120)</h2>
+          <div class="grid">
+            <article class="card">
+              <div class="card-body">
+                <h4 data-i18n="pc.title_10">+10 níveis</h4>
+                <div class="price" data-price="12">12 €</div>
+                <ul class="feat"><li data-i18n="pc.feat_10">build otimizada incluída</li></ul>
+              </div>
+              <div class="actions"><a class="btn" href="#" data-wa-key="pc.title_10" onclick="return book(this)" data-i18n="cta.book">reservar</a><button class="btn" onclick="addToCart('pc.title_10', 12)" data-i18n="cta.add">adicionar</button></div>
+            </article>
+            <article class="card">
+              <div class="card-body">
+                <h4 data-i18n="pc.title_20">+20 níveis</h4>
+                <div class="price" data-price="20">20 €</div>
+                <ul class="feat"><li data-i18n="pc.feat_20">atualizações por bloco</li></ul>
+              </div>
+              <div class="actions"><a class="btn" href="#" data-wa-key="pc.title_20" onclick="return book(this)" data-i18n="cta.book">reservar</a><button class="btn" onclick="addToCart('pc.title_20', 20)" data-i18n="cta.add">adicionar</button></div>
+            </article>
+            <article class="card">
+              <div class="card-body">
+                <h4 data-i18n="pc.title_100">Nível 100</h4>
+                <div class="price" data-price="80">80 €</div>
+                <ul class="feat"><li data-i18n="pc.feat_100">Entrega rápida garantida</li></ul>
+              </div>
+              <div class="actions"><a class="btn" href="#" data-wa-key="pc.title_100" onclick="return book(this)" data-i18n="cta.book">reservar</a><button class="btn" onclick="addToCart('pc.title_100', 80)" data-i18n="cta.add">adicionar</button></div>
+            </article>
+            <article class="card">
+              <span class="pill" data-i18n="pricing.full">full</span>
+              <div class="card-body">
+                <h4 data-i18n="pc.title_120">Nível 120 (full)</h4>
+                <div class="price" data-price="120">120 €</div>
+                <ul class="feat"><li data-i18n="pc.feat_120">coaching 30 min incluso</li></ul>
+              </div>
+              <div class="actions"><a class="btn btn-primary" href="#" data-wa-key="pc.title_120" onclick="return book(this)" data-i18n="pc.cta_120">fechar 120</a><button class="btn" onclick="addToCart('pc.title_120', 120)" data-i18n="cta.add">adicionar</button></div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== FC 26 PRE-ORDER ===== -->
+      <section id="fc26" class="sec alt">
+        <div class="wrap">
+          <h2 data-i18n="fc26.title">EA SPORTS FC™ 26 — Reserve o seu</h2>
+          <p class="muted" data-i18n="fc26.subtitle">entrega garantida no dia do lançamento para PC (EA App).</p>
+          <div class="grid">
+            <!-- Standard Edition -->
+            <article class="card">
+              <img src="https://i.imgur.com/7zzNGEk.jpeg" alt="Capa do FC 26 Standard Edition" class="card-img">
+              <div class="card-body">
+                <h4 data-i18n="fc26.std_title">FC 26 Standard Edition</h4>
+                <div class="price" data-price="45">45 €</div>
+                <ul class="feat" data-i18n="fc26.std_feat" style="list-style:disc; padding-left:20px; font-size:13px;">
+                   <li>Jogo Base FC 26</li>
+                   <li>Item de Jogador Astro da Capa por Empréstimo (10 partidas)</li>
+                   <li>2 Escolhas de Jogador Embaixador por Empréstimo (5 partidas)</li>
+                   <li>Espaço para PlayStyles Desbloqueado no Clubs</li>
+                   <li>Pontos de Personalidade de Atleta adicionais</li>
+                   <li>Auxiliar técnico 5 estrelas na Carreira de Manager</li>
+                </ul>
+              </div>
+              <div class="actions">
+                <a class="btn btn-primary" href="#" data-wa-key="fc26.std_title" onclick="return book(this)" data-i18n="cta.book">reservar</a>
+                <button class="btn" onclick="addToCart('fc26.std_title', 45)" data-i18n="cta.add">adicionar</button>
+              </div>
+            </article>
+            <!-- Ultimate Edition -->
+            <article class="card">
+              <span class="pill" data-i18n="fc26.early">Acesso Antecipado</span>
+              <img src="https://i.imgur.com/CR8LIhR.jpeg" alt="Capa do FC 26 Ultimate Edition" class="card-img">
+              <div class="card-body">
+                <h4 data-i18n="fc26.ult_title">FC 26 Ultimate Edition</h4>
+                <div class="price" data-price="60">60 €</div>
+                <ul class="feat" data-i18n="fc26.ult_feat" style="list-style:disc; padding-left:20px; font-size:13px;">
+                   <li>Até 7 dias de Acesso Antecipado</li>
+                   <li>4.600 FC Points</li>
+                   <li>Acesso à Campanha Nike Ultimate Team™</li>
+                   <li>Item de Jogador da Campanha Nike UT (24 partidas)</li>
+                   <li>Uniforme Nike x EA SPORTS FC™ UT</li>
+                   <li>Item de Jogador da TOTW 1 do UT</li>
+                   <li><strong>Todos os bônus da Edição Standard</strong></li>
+                </ul>
+              </div>
+              <div class="actions">
+                <a class="btn btn-primary" href="#" data-wa-key="fc26.ult_title" onclick="return book(this)" data-i18n="cta.book">reservar</a>
+                <button class="btn" onclick="addToCart('fc26.ult_title', 60)" data-i18n="cta.add">adicionar</button>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== Testimonials ===== -->
+      <section id="testimonials" class="sec">
+        <div class="wrap">
+          <h2 data-i18n="testimonials.title">O que dizem os nossos clientes</h2>
+          <div class="testimonial-slider-container">
+            <div class="testimonial-slider">
+              <!-- Testimonial 1 -->
+              <article class="card">
+                <img src="https://i.imgur.com/BpeSRMC.png" alt="Imagem do serviço WL Rank 1" class="testimonial-img">
+                <div class="card-body"><p><em data-i18n="testimonials.t1_text">"Serviço impecável! Atingiram o Rank 1 na WL para mim sem qualquer problema. Comunicação excelente durante todo o processo. Recomendo!"</em></p></div>
+                <div class="testimonial-author"><span data-i18n="testimonials.t1_author">- João F., Lisboa</span><span>⭐⭐⭐⭐⭐</span></div>
+              </article>
+              <!-- Testimonial 2 -->
+              <article class="card">
+                <img src="https://i.imgur.com/uXdlDcb.png" alt="Imagem do serviço Pro Clubs" class="testimonial-img">
+                <div class="card-body"><p><em data-i18n="testimonials.t2_text">"Contratei o boost no Pro Clubs e foi super rápido. Em menos de 24h já tinha os níveis que precisava. Equipa muito profissional."</em></p></div>
+                <div class="testimonial-author"><span data-i18n="testimonials.t2_author">- Miguel P., Madrid</span><span>⭐⭐⭐⭐⭐</span></div>
+              </article>
+              <!-- Testimonial 3 -->
+              <article class="card">
+                <img src="https://i.imgur.com/xyshamX.png" alt="Imagem do serviço Division Rivals" class="testimonial-img">
+                <div class="card-body"><p><em data-i18n="testimonials.t3_text">"Estava preso na Divisão 2 há semanas. Eles subiram-me para a Elite em tempo recorde. Muito seguro e confiável."</em></p></div>
+                <div class="testimonial-author"><span data-i18n="testimonials.t3_author">- Carlos S., Porto</span><span>⭐⭐⭐⭐⭐</span></div>
+              </article>
+              <!-- Testimonial 4 -->
+              <article class="card">
+                <img src="https://i.imgur.com/BloLyVh.jpeg" alt="Imagem do serviço WL Rank 2" class="testimonial-img">
+                <div class="card-body"><p><em data-i18n="testimonials.t4_text">"Consegui o Rank 2 sem stress. A equipa é super profissional e comunicativa. Recomendo a 100%!"</em></p></div>
+                <div class="testimonial-author"><span data-i18n="testimonials.t4_author">- André G., Faro</span><span>⭐⭐⭐⭐⭐</span></div>
+              </article>
+              <!-- Testimonial 5 -->
+              <article class="card">
+                <img src="https://placehold.co/400x225/0a1020/eaf2ff?text=WL+Rank+3" alt="Imagem do serviço WL Rank 3" class="testimonial-img">
+                <div class="card-body"><p><em data-i18n="testimonials.t5_text">"Serviço rápido e eficiente. Atingiram o Rank 3 para mim e ainda me deram umas dicas. Muito bom!"</em></p></div>
+                <div class="testimonial-author"><span data-i18n="testimonials.t5_author">- Sofia C., Sevilha</span><span>⭐⭐⭐⭐⭐</span></div>
+              </article>
+              <!-- Testimonial 6 -->
+              <article class="card">
+                <img src="https://placehold.co/400x225/0a1020/eaf2ff?text=WL+Rank+5" alt="Imagem do serviço WL Rank 5" class="testimonial-img">
+                <div class="card-body"><p><em data-i18n="testimonials.t6_text">"Precisava só de garantir as recompensas do Rank 5 e eles fizeram o trabalho na perfeição. Preço justo e serviço de qualidade."</em></p></div>
+                <div class="testimonial-author"><span data-i18n="testimonials.t6_author">- Diogo M., Valência</span><span>⭐⭐⭐⭐⭐</span></div>
+              </article>
+              <!-- Testimonial 7 -->
+              <article class="card">
+                <img src="https://placehold.co/400x225/0a1020/eaf2ff?text=Rivals+Boost" alt="Imagem do serviço Division Rivals" class="testimonial-img">
+                <div class="card-body"><p><em data-i18n="testimonials.t7_text">"Levaram-me da Divisão 4 à 1 em dois dias. A comunicação foi excelente e o serviço foi muito seguro. 5 estrelas!"</em></p></div>
+                <div class="testimonial-author"><span data-i18n="testimonials.t7_author">- Laura T., Barcelona</span><span>⭐⭐⭐⭐⭐</span></div>
+              </article>
+            </div>
+            <button class="slider-btn prev" aria-label="Anterior">‹</button>
+            <button class="slider-btn next" aria-label="Seguinte">›</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== AI Coach ===== -->
+      <section id="ai-coach" class="sec alt">
+        <div class="wrap">
+          <h2 data-i18n="ai_coach.title">✨ Pergunte ao nosso Treinador de IA</h2>
+          <div class="card" style="padding: 24px;">
+            <p class="muted" data-i18n="ai_coach.subtitle">Tem alguma dúvida sobre os nossos serviços, segurança ou como tudo funciona? O nosso assistente de IA está pronto para ajudar!</p>
+            <div class="ai-coach-io">
+              <textarea id="ai-coach-question" rows="3" class="select w-100" data-i18n-placeholder="ai_coach.placeholder" placeholder="Ex: Quanto tempo demora uma WL?"></textarea>
+              <button id="ask-ai-btn" class="btn btn-primary" onclick="askAICoach()">
+                <span data-i18n="ai_coach.button">Perguntar à IA</span>
+              </button>
+            </div>
+            <div id="ai-coach-answer" class="ai-answer-box" style="margin-top: 1.5rem; display: none;">
+              <p id="ai-coach-output"></p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== COMO FUNCIONA ===== -->
+      <section id="como" class="sec">
+        <div class="wrap">
+        <h2 data-i18n="how.title">como funciona</h2>
+        <ol class="ticks" style="list-style:none; padding-left:0; display:grid; gap:.5rem;">
+          <li data-i18n="how.s1"><strong>reserva:</strong> chama no whatsapp/telegram e alinhamos objetivo e horário.</li>
+          <li data-i18n="how.s2"><strong>segurança:</strong> vpn local (es/pt) + 2fa; prints/stream sob pedido.</li>
+          <li data-i18n="how.s3"><strong>execução:</strong> jogamos por blocos e reportamos cada etapa.</li>
+          <li data-i18n="how.s4"><strong>entrega:</strong> conferimos recompensas/níveis; política de reembolso parcial.</li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ===== FAQ ===== -->
+    <section id="faq" class="sec alt">
+      <div class="wrap">
+        <h2 data-i18n="faq.title">faq</h2>
+        <details><summary data-i18n="faq.q1">é seguro?</summary><p class="muted" data-i18n="faq.a1">Usamos VPN local e boas práticas. Compartilhar a conta infringe os termos de serviço; contrate ciente dos riscos.</p></details>
+        <details><summary data-i18n="faq.q2">quanto tempo leva uma wl?</summary><p class="muted" data-i18n="faq.a2">Em média 6–8h. Combinamos os blocos de jogos conforme a sua agenda.</p></details>
+        <details><summary data-i18n="faq.q3">posso acompanhar o progresso?</summary><p class="muted" data-i18n="faq.a3">Sim. Enviamos prints por bloco de jogos; streaming sob pedido.</p></details>
+        <details><summary data-i18n="faq.q4">usam algum glitch ou software externo?</summary><p class="muted" data-i18n="faq.a4">Não. Tudo legítimo, sem exploits ou programas de terceiros.</p></details>
+        <details><summary data-i18n="faq.q5">❓ Como funciona o pagamento?</summary><p class="muted" data-i18n="faq.a5">No início do serviço é cobrado 20% do valor contratado como garantia. Após a conclusão completa do serviço, o cliente realiza o pagamento do valor restante. Caso deseje acompanhar o serviço em tempo real via stream (Discord ou Twitch), é necessário consultar previamente o custo adicional dessa opção.</p></details>
+      </div>
+    </section>
+
+    <!-- ===== CONTATO ===== -->
+    <section id="contato" class="sec">
+        <div class="wrap">
+          <h2 data-i18n="contact.title">reservar agora</h2>
+          <div class="contact-grid">
+            <div>
+              <p class="muted" data-i18n="contact.lead">resposta rápida, horário europeu (CET/CEST).</p>
+              <div class="actions" style="margin:.6rem 0 1rem"><a id="ig-link" class="btn" target="_blank" rel="noopener">📸 Instagram</a><a id="wa-link" class="btn btn-primary" target="_blank" rel="noopener" data-i18n="contact.whats">💬 WhatsApp</a></div>
+              <p><span data-i18n="contact.email">📧 Email:</span> <a id="mail-link" href="mailto:luxboosting@gmail.com">luxboosting@gmail.com</a></p>
+            </div>
+            <form class="card" id="lead-form" onsubmit="return sendLead(event)">
+              <label for="nome" data-i18n="form.name">nome</label>
+              <input id="nome" required data-i18n-placeholder="form.name_ph" placeholder="Seu nome" class="select" style="width:100%;margin:.3rem 0 8px" />
+              <label for="handle" data-i18n="form.handle">contato (whatsapp ou telegram)</label>
+              <input id="handle" required data-i18n-placeholder="form.handle_ph" placeholder="@usuario ou +34…" class="select" style="width:100%;margin:.3rem 0 8px" />
+              <label for="servico" data-i18n="form.service">serviço</label>
+              <select id="servico" class="select" style="width:100%;margin:.3rem 0 8px">
+                <option data-i18n="form.s_wl1">WL Rank 1</option><option data-i18n="form.s_wl2">WL Rank 2</option><option data-i18n="form.s_wl3">WL Rank 3</option><option data-i18n="form.s_wl4">WL Rank 4</option><option data-i18n="form.s_wl5">WL Rank 5</option>
+                <option data-i18n="form.s_rivals">Rivals Boost (Divisão)</option>
+                <option data-i18n="form.s_pc10">Pro Clubs +10 Níveis</option><option data-i18n="form.s_pc20">Pro Clubs +20 Níveis</option><option data-i18n="form.s_pc100">Pro Clubs Nível 100</option><option data-i18n="form.s_pc120">Pro Clubs Nível 120</option>
+              </select>
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 8px;">
+                <label for="msg" data-i18n="form.msg">mensagem</label>
+                <button type="button" class="btn-ico" id="generate-msg-btn" onclick="generateMessage()" style="font-size: 12px; padding: .35rem .5rem;">
+                    ✨ <span data-i18n="form.generate_ai">Gerar com IA</span>
+                </button>
+              </div>
+              <textarea id="msg" rows="3" data-i18n-placeholder="form.msg_ph" placeholder="Horários, objetivos…" class="select" style="width:100%;margin:.3rem 0 10px"></textarea>
+              <button type="submit" class="btn btn-primary w-100" data-i18n="form.submit">enviar pedido</button>
+            </form>
+          </div>
+        </div>
+      </section>
+  </main>
+
+  <!-- ===== Termos e Condições ===== -->
+  <section id="termos" class="sec">
+    <div class="wrap">
+      <h2 data-i18n="terms.title">Termos e Condições</h2>
+      <div style="color: var(--mut); font-size: 15px; line-height: 1.7;">
+        <p data-i18n="terms.intro">Ao contratar qualquer serviço da LuxBoost, você ("o Cliente") concorda com os seguintes termos. A LuxBoost ("a Empresa") compromete-se a fornecer serviços de boosting para o jogo EA FC 26 na plataforma PC.</p>
+        
+        <h4 style="color: var(--ink); margin-top: 1.5rem;" data-i18n="terms.s1_title">1. Acordo de Serviço e Riscos</h4>
+        <p data-i18n="terms.s1_p1">O Cliente reconhece que a partilha de contas viola os Termos de Serviço da Electronic Arts (EA). A contratação dos nossos serviços é feita com plena consciência deste risco. A Empresa toma todas as precauções de segurança possíveis (como o uso de VPN), mas não se responsabiliza por quaisquer ações tomadas pela EA na conta do Cliente.</p>
+
+        <h4 style="color: var(--ink); margin-top: 1.5rem;" data-i18n="terms.s2_title">2. Pagamento e Depósito</h4>
+        <p data-i18n="terms.s2_p1">É necessário um depósito de 20% do valor total do serviço para agendar e iniciar o trabalho. O valor restante deve ser pago imediatamente após a conclusão do serviço. A opção de acompanhar o serviço via stream pode ter um custo adicional, que deve ser consultado previamente.</p>
+
+        <h4 style="color: var(--ink); margin-top: 1.5rem;" data-i18n="terms.s3_title">3. Política de Reembolso</h4>
+        <p data-i18n="terms.s3_p1">Se a meta contratada não for alcançada por responsabilidade da nossa equipa, será oferecido um reembolso proporcional ao trabalho não concluído. O depósito de 20% não é reembolsável caso o Cliente decida cancelar o serviço após o seu início.</p>
+
+        <h4 style="color: var(--ink); margin-top: 1.5rem;" data-i18n="terms.s4_title">4. Responsabilidades do Cliente</h4>
+        <p data-i18n="terms.s4_p1">O Cliente deve fornecer os dados de acesso corretos e garantir que a verificação de login (2FA) está preparada para nos fornecer os códigos de acesso. Durante o período do serviço, o Cliente não deve aceder à sua conta no modo Ultimate Team para evitar interrupções, a menos que seja combinado previamente com a nossa equipa.</p>
+
+        <h4 style="color: var(--ink); margin-top: 1.5rem;" data-i18n="terms.s5_title">5. Confidencialidade e Segurança da Conta</h4>
+        <p data-i18n="terms.s5_p1">A Empresa compromete-se a não utilizar moedas, jogadores ou quaisquer outros itens da conta do Cliente sem autorização prévia. Todas as informações da conta são tratadas como confidenciais e a comunicação com a lista de amigos do Cliente é estritamente proibida.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="ftr">
+    <div class="wrap">
+      <p style="margin-bottom: 0.5rem;"><a href="#termos" data-i18n="footer.terms">Termos e Condições</a></p>
+      <p data-i18n="footer.copyright">© 2025 LuxBoost. Todos os direitos reservados.</p>
+    </div>
+  </footer>
+
+    <script>
+    // ==== CONFIG ====
+    const WHATSAPP_NUM   = '34631486052';
+    const INSTAGRAM_USER = 'lux.boostfc26';
+    const GEMINI_API_KEY = 'AIzaSyBymxODKhHcbZMfOW9i55HvO4VaTpwXdVY';
+
+    <!-- ==== I18N ==== -->
+    const I18N = {
+      pt: { 'menu.prices':'Preços','menu.how':'Como funciona','menu.faq':'FAQ','menu.book':'Reservar','menu.contact':'Contato','menu.rivals':'Division Rivals','menu.pc':'Pro Clubs','menu.fc26':'FC 26', 'menu.terms':'Termos', 'hero.title':'WL sem dor de cabeça • <span class="accent">Ranks 1–5, Rivals e Pro Clubs</span>', 'hero.lead':'Serviços profissionais para <strong>FC 26 (PC)</strong> em ES/PT/EN. VPN local, prints/stream e prazos claros.', 'hero.ctaPricing':'Ver preços','hero.ctaBook':'Reservar agora','hero.trust1':'✅ Vitórias garantidas na Weekend League (Ranks 1–5): alcance os melhores resultados sem estresse.','hero.trust2':'✅ Times e builds otimizadas: jogue sempre com a estratégia perfeita para cada partida.','hero.trust3':'✅ Coaching exclusivo: aprenda técnicas e segredos direto com jogadores profissionais.','hero.trust4':'✅ Suporte VIP e resposta imediata: atendimento rápido e personalizado via WhatsApp/Telegram.','hero.badge':'Rank 1 WL', 'pricing.title':'Preços — Weekend League (Champions Finals)','pricing.subtitle':'Reserve por WhatsApp ou <strong>adicione ao carrinho</strong>.', 'pricing.wlFeat1':'Garantia de 18+ vitórias','pricing.wlFeat2':'VPN + prints/stream','pricing.common1':'Entrega no mesmo fim de semana','pricing.common2':'Prints de resultados','pricing.wl_feat_guarantee':'Garantia parcial','pricing.full':'Full', 'pricing.pc':'Pro Clubs (até nível 120)','pricing.best':'Mais pedido', 'pricing.wl_r1_title':'WL Rank 1','pricing.wl_r2_title':'WL Rank 2','pricing.wl_r3_title':'WL Rank 3','pricing.wl_r4_title':'WL Rank 4','pricing.wl_r5_title':'WL Rank 5', 'pricing.rewards_r1':'Premiações Rank 1','pricing.rewards_r2':'Premiações Rank 2','pricing.rewards_r3':'Premiações Rank 3','pricing.rewards_r4':'Premiações Rank 4','pricing.rewards_r5':'Premiações Rank 5', 'how.title':'Como funciona','how.s1':'<strong>Reserva:</strong> Chame no WhatsApp/Telegram e alinhamos objetivo e horário.','how.s2':'<strong>Segurança:</strong> VPN local (ES/PT) + 2FA; prints/stream sob pedido.','how.s3':'<strong>Execução:</strong> Jogamos por blocos e reportamos cada etapa.','how.s4':'<strong>Entrega:</strong> Conferimos recompensas/níveis; política de reembolso parcial.', 'faq.title':'FAQ','faq.q1':'É seguro?','faq.a1':'Usamos VPN local e boas práticas. Compartilhar a conta infringe os termos de serviço; contrate ciente dos riscos.','faq.q2':'Quanto tempo leva uma WL?','faq.a2':'Em média 6–8h. Combinamos os blocos de jogos conforme a sua agenda.','faq.q3':'Posso acompanhar o progresso?','faq.a3':'Sim. Enviamos prints por bloco de jogos; streaming sob pedido.','faq.q4':'Usam algum glitch ou software externo?','faq.a4':'Não. Tudo legítimo, sem exploits ou programas de terceiros.', 'faq.q5':'❓ Como funciona o pagamento?','faq.a5':'No início do serviço é cobrado 20% do valor contratado como garantia. Após a conclusão completa do serviço, o cliente realiza o pagamento do valor restante. Caso deseje acompanhar o serviço em tempo real via stream (Discord ou Twitch), é necessário consultar previamente o custo adicional dessa opção.', 'contact.title':'Reservar agora','contact.lead':'Resposta rápida, horário europeu (CET/CEST).','contact.whats':'Abrir conversa','contact.telegram':'✈️ Telegram:','contact.email':'📧 Email:', 'cart.title':'Carrinho','cart.total':'Total:','cart.checkout':'Finalizar pelo WhatsApp','cart.clear':'Limpar carrinho','cart.empty':'O seu carrinho está vazio.', 'cta.book':'Reservar', 'cta.add':'Adicionar', 'form.name':'Nome', 'form.handle':'Contato (WhatsApp ou Telegram)', 'form.service':'Serviço', 'form.msg':'Mensagem', 'form.submit':'Enviar pedido', 'form.name_ph':'Seu nome','form.handle_ph':'@usuario ou +34…','form.msg_ph':'Horários, objetivos…','form.s_wl1':'WL Rank 1','form.s_wl2':'WL Rank 2','form.s_wl3':'WL Rank 3','form.s_wl4':'WL Rank 4','form.s_wl5':'WL Rank 5','form.s_rivals':'Rivals Boost (Divisão)','form.s_pc10':'Pro Clubs +10 Níveis','form.s_pc20':'Pro Clubs +20 Níveis','form.s_pc100':'Pro Clubs Nível 100','form.s_pc120':'Pro Clubs Nível 120', 'rivals.title':'Division Rivals — Calculadora de Boosting','rivals.current':'Divisão atual','rivals.target':'Divisão alvo','rivals.result':'Resultado','rivals.steps':'Divisões a subir:','rivals.price':'Preço estimado:','rivals.note':'Tabela base: <strong>10 €</strong> por divisão (<strong>30 €</strong> de Div 1 para Elite).','rivals.add':'Adicionar ao carrinho','rivals.book':'Reservar por WhatsApp','rivals.benefits': 'Vantagens do nosso serviço', 'rivals.b_sec_title':'Segurança','rivals.b_sec_desc':'VPN local (ES/PT) + 2FA; só jogamos em sessão combinada.','rivals.b_comm_title':'Comunicação','rivals.b_comm_desc':'Prints por bloco no WhatsApp/Telegram e opção de stream.','rivals.b_deadlines_title':'Prazos claros','rivals.b_deadlines_desc':'Agendamento conforme sua agenda (janela diurna/noturna).','rivals.b_guarantee_title':'Garantia','rivals.b_guarantee_desc':'Se não bater a <em>divisão alvo</em>, reembolso proporcional.','rivals.b_addons_title':'Add-ons','rivals.b_addons_desc':'Prioridade (express) e proteção de MMR sob consulta.','rivals.b_payment_title':'Pagamento','rivals.b_payment_desc':'Orçamento pela calculadora + fechamento no WhatsApp.', 'pc.title_10':'+10 Níveis','pc.feat_10':'Build otimizada incluída','pc.title_20':'+20 Níveis','pc.feat_20':'Atualizações por bloco','pc.title_100':'Nível 100','pc.feat_100':'Entrega rápida garantida','pc.title_120':'Nível 120 (Full)','pc.feat_120':'Coaching 30 min incluso','pc.cta_120':'Fechar 120', 'div.10':'Divisão 10','div.9':'Divisão 9','div.8':'Divisão 8','div.7':'Divisão 7','div.6':'Divisão 6','div.5':'Divisão 5','div.4':'Divisão 4','div.3':'Divisão 3','div.2':'Divisão 2','div.1':'Divisão 1','div.elite':'Elite', 'fc26.title':'EA SPORTS FC™ 26 — Reserve o seu','fc26.subtitle':'Entrega garantida no dia do lançamento para PC (EA App).','fc26.std_title':'FC 26 Standard Edition','fc26.ult_title':'FC 26 Ultimate Edition','fc26.early':'Acesso Antecipado','fc26.std_feat':'<li>Jogo Base FC 26</li><li>Item de Jogador Astro da Capa por Empréstimo (10 partidas)</li><li>2 Escolhas de Jogador Embaixador por Empréstimo (5 partidas)</li><li>Espaço para PlayStyles Desbloqueado no Clubs</li><li>Pontos de Personalidade de Atleta adicionais</li><li>Auxiliar técnico 5 estrelas na Carreira de Manager</li>','fc26.ult_feat':'<li>Até 7 dias de Acesso Antecipado</li><li>4.600 FC Points</li><li>Acesso à Campanha Nike Ultimate Team™</li><li>Item de Jogador da Campanha Nike UT (24 partidas)</li><li>Uniforme Nike x EA SPORTS FC™ UT</li><li>Item de Jogador da TOTW 1 do UT</li><li><strong>Todos os bônus da Edição Standard</strong></li>', 'testimonials.title':'O que dizem os nossos clientes','testimonials.t1_text':'"Serviço impecável! Atingiram o Rank 1 na WL para mim sem qualquer problema. Comunicação excelente durante todo o processo. Recomendo!"','testimonials.t1_author':'- João F., Lisboa','testimonials.t2_text':'"Contratei o boost no Pro Clubs e foi super rápido. Em menos de 24h já tinha os níveis que precisava. Equipa muito profissional."','testimonials.t2_author':'- Miguel P., Madrid','testimonials.t3_text':'"Estava preso na Divisão 2 há semanas. Eles subiram-me para a Elite em tempo recorde. Muito seguro e confiável."','testimonials.t3_author':'- Carlos S., Porto', 'testimonials.t4_text':'"Consegui o Rank 2 sem stress. A equipa é super profissional e comunicativa. Recomendo a 100%!"','testimonials.t4_author':'- André G., Faro','testimonials.t5_text':'"Serviço rápido e eficiente. Atingiram o Rank 3 para mim e ainda me deram umas dicas. Muito bom!"','testimonials.t5_author':'- Sofia C., Sevilha','testimonials.t6_text':'"Precisava só de garantir as recompensas do Rank 5 e eles fizeram o trabalho na perfeição. Preço justo e serviço de qualidade."','testimonials.t6_author':'- Diogo M., Valência','testimonials.t7_text':'"Levaram-me da Divisão 4 à 1 em dois dias. A comunicação foi excelente e o serviço foi muito seguro. 5 estrelas!"','testimonials.t7_author':'- Laura T., Barcelona', 'form.generate_ai':'Gerar com IA', 'form.generating':'A gerar', 'form.ai_error':'Ocorreu um erro ao gerar a mensagem. Por favor, tente novamente.', 'form.ai_prompt_template': 'Aja como um cliente a contactar um serviço de boosting para o jogo EA FC. Escreva uma mensagem curta e amigável em português para reservar o serviço de "{serviceName}". Mencione o meu nome, "{userName}", e pergunte sobre a disponibilidade para começar.', 'ai_welcome.title': '✨ Gere uma Mensagem de Boas-Vindas com IA', 'ai_welcome.placeholder': 'Insira o seu nome de jogador...', 'ai_welcome.button': 'Gerar', 'ai_welcome.generating': 'A gerar...', 'ai_welcome.error': 'Não foi possível gerar a mensagem. Tente novamente.', 'ai_welcome.prompt_template': 'Crie uma mensagem de boas-vindas muito curta (2-3 frases), motivacional e amigável para um jogador de EA FC 26 chamado "{gamerTag}". A mensagem deve ser gerada em português de Portugal e mencionar que os serviços da LuxBoost o podem ajudar a dominar o jogo (WL Ranks, Rivals, etc.).', 'ai_coach.title':'✨ Pergunte ao nosso Treinador de IA', 'ai_coach.subtitle':'Tem alguma dúvida sobre os nossos serviços, segurança ou como tudo funciona? O nosso assistente de IA está pronto para ajudar!', 'ai_coach.placeholder':'Ex: Quanto tempo demora uma WL?', 'ai_coach.button':'Perguntar à IA', 'ai_coach.generating':'A gerar...', 'ai_coach.thinking':'A pensar...', 'ai_coach.error':'Ocorreu um erro ao obter a resposta. Tente novamente.', 'footer.copyright': '© 2025 LuxBoost. Todos os direitos reservados.', 'footer.terms': 'Termos e Condições', 'terms.title': 'Termos e Condições', 'terms.intro': 'Ao contratar qualquer serviço da LuxBoost, você ("o Cliente") concorda com os seguintes termos. A LuxBoost ("a Empresa") compromete-se a fornecer serviços de boosting para o jogo EA FC 26 na plataforma PC.', 'terms.s1_title': '1. Acordo de Serviço e Riscos', 'terms.s1_p1': 'O Cliente reconhece que a partilha de contas viola os Termos de Serviço da Electronic Arts (EA). A contratação dos nossos serviços é feita com plena consciência deste risco. A Empresa toma todas as precauções de segurança possíveis (como o uso de VPN), mas não se responsabiliza por quaisquer ações tomadas pela EA na conta do Cliente.', 'terms.s2_title': '2. Pagamento e Depósito', 'terms.s2_p1': 'É necessário um depósito de 20% do valor total do serviço para agendar e iniciar o trabalho. O valor restante deve ser pago imediatamente após a conclusão do serviço. A opção de acompanhar o serviço via stream pode ter um custo adicional, que deve ser consultado previamente.', 'terms.s3_title': '3. Política de Reembolso', 'terms.s3_p1': 'Se a meta contratada não for alcançada por responsabilidade da nossa equipa, será oferecido um reembolso proporcional ao trabalho não concluído. O depósito de 20% não é reembolsável caso o Cliente decida cancelar o serviço após o seu início.', 'terms.s4_title': '4. Responsabilidades do Cliente', 'terms.s4_p1': 'O Cliente deve fornecer os dados de acesso corretos e garantir que a verificação de login (2FA) está preparada para nos fornecer os códigos de acesso. Durante o período do serviço, o Cliente não deve aceder à sua conta no modo Ultimate Team para evitar interrupções, a menos que seja combinado previamente com a nossa equipa.', 'terms.s5_title': '5. Confidencialidade e Segurança da Conta', 'terms.s5_p1': 'A Empresa compromete-se a não utilizar moedas, jogadores ou quaisquer outros itens da conta do Cliente sem autorização prévia. Todas as informações da conta são tratadas como confidenciais e a comunicação com a lista de amigos do Cliente é estritamente proibida.' },
+      es: { 'menu.prices':'Precios','menu.how':'Cómo funciona','menu.faq':'FAQ','menu.book':'Reservar','menu.contact':'Contacto','menu.rivals':'Division Rivals','menu.pc':'Pro Clubs','menu.fc26':'FC 26', 'menu.terms':'Términos', 'hero.title':'WL sin estrés • <span class="accent">Ranks 1–5, Rivals y Pro Clubs</span>', 'hero.lead':'Servicios profesionales para <strong>FC 26 (PC)</strong> em ES/PT/EN. VPN local, capturas/stream y plazos claros.', 'hero.ctaPricing':'Ver precios','hero.ctaBook':'Reservar ahora','hero.trust1':'✅ Victorias garantizadas en la Weekend League (Ranks 1–5): alcanza los mejores resultados sin estrés.','hero.trust2':'✅ Equipos y builds optimizadas: juega siempre con la estrategia perfecta para cada partido.','hero.trust3':'✅ Coaching exclusivo: aprende técnicas y secretos directamente de jugadores profesionales.','hero.trust4':'✅ Soporte VIP y respuesta inmediata: atención rápida y personalizada por WhatsApp/Telegram.','hero.badge':'Rank 1 WL', 'pricing.title':'Precios — Weekend League (Champions Finals)','pricing.subtitle':'Reserva por WhatsApp o <strong>añade al carrito</strong>.', 'pricing.wlFeat1':'Garantía de 18+ victorias','pricing.wlFeat2':'VPN + capturas/stream','pricing.common1':'Entrega el mismo fin de semana','pricing.common2':'Capturas de resultados','pricing.wl_feat_guarantee':'Garantía parcial','pricing.full':'Full', 'pricing.pc':'Pro Clubs (hasta nivel 120)','pricing.best':'Más popular', 'pricing.wl_r1_title':'WL Rank 1','pricing.wl_r2_title':'WL Rank 2','pricing.wl_r3_title':'WL Rank 3','pricing.wl_r4_title':'WL Rank 4','pricing.wl_r5_title':'WL Rank 5', 'pricing.rewards_r1':'Recompensas Rank 1','pricing.rewards_r2':'Recompensas Rank 2','pricing.rewards_r3':'Recompensas Rank 3','pricing.rewards_r4':'Recompensas Rank 4','pricing.rewards_r5':'Recompensas Rank 5', 'how.title':'Cómo funciona','how.s1':'<strong>Reserva:</strong> Escribe por WhatsApp/Telegram y alineamos objetivo y horario.','how.s2':'<strong>Seguridad:</strong> VPN local (ES/PT) + 2FA; capturas/stream a pedido.','how.s3':'<strong>Ejecución:</strong> Jugamos por bloques y reportamos cada etapa.','how.s4':'<strong>Entrega:</strong> Revisamos recompensas/niveles; política de reembolso parcial.', 'faq.title':'FAQ','faq.q1':'¿Es seguro?','faq.a1':'Usamos VPN local y buenas prácticas. Compartir la cuenta infringe los términos de servicio; contrata siendo consciente de los riesgos.','faq.q2':'¿Cuánto tarda una WL?','faq.a2':'Un promedio de 6–8h. Acordamos los bloques de juego según tu agenda.','faq.q3':'¿Puedo seguir el progreso?','faq.a3':'Sí. Enviamos capturas por bloque de partidos; streaming a pedido.','faq.q4':'¿Usan algún glitch o software externo?','faq.a4':'No. Todo legítimo, sin exploits ni programas de terceros.', 'faq.q5':'❓ ¿Cómo funciona el pago?','faq.a5':'Al inicio del servicio se cobra el 20% del valor contratado como garantía. Tras la finalización completa del servicio, el cliente realiza el pago del valor restante. Si deseas seguir el servicio en tiempo real a través de stream (Discord o Twitch), es necesario consultar previamente el coste adicional de esta opción.', 'contact.title':'Reservar ahora','contact.lead':'Respuesta rápida, horario europeo (CET/CEST).','contact.whats':'Abrir chat','contact.telegram':'✈️ Telegram:','contact.email':'📧 Email:', 'cart.title':'Carrito','cart.total':'Total:','cart.checkout':'Finalizar por WhatsApp','cart.clear':'Vaciar carrito','cart.empty':'Tu carrito está vacío.', 'cta.book':'Reservar', 'cta.add':'Añadir', 'form.name':'Nombre', 'form.handle':'Contacto (WhatsApp o Telegram)', 'form.service':'Servicio', 'form.msg':'Mensaje', 'form.submit':'Enviar solicitud', 'form.name_ph':'Tu nombre','form.handle_ph':'@usuario o +34…','form.msg_ph':'Horarios, objetivos…','form.s_wl1':'WL Rank 1','form.s_wl2':'WL Rank 2','form.s_wl3':'WL Rank 3','form.s_wl4':'WL Rank 4','form.s_wl5':'WL Rank 5','form.s_rivals':'Boost de Rivals (División)','form.s_pc10':'Pro Clubs +10 Niveles','form.s_pc20':'Pro Clubs +20 Niveles','form.s_pc100':'Pro Clubs Nivel 100','form.s_pc120':'Pro Clubs Nivel 120', 'rivals.title':'Division Rivals — Calculadora de Boost','rivals.current':'División actual','rivals.target':'División objetivo','rivals.result':'Resultado','rivals.steps':'Divisiones a subir:','rivals.price':'Precio estimado:','rivals.note':'Tarifa base: <strong>10 €</strong> por división (<strong>30 €</strong> de Div 1 a Élite).','rivals.add':'Añadir al carrito','rivals.book':'Reservar por WhatsApp','rivals.benefits': 'Ventajas de nuestro servicio', 'rivals.b_sec_title':'Seguridad','rivals.b_sec_desc':'VPN local (ES/PT) + 2FA; solo jugamos en sesión acordada.','rivals.b_comm_title':'Comunicación','rivals.b_comm_desc':'Capturas por bloque en WhatsApp/Telegram y opción de stream.','rivals.b_deadlines_title':'Plazos claros','rivals.b_deadlines_desc':'Programación según tu agenda (horario de día/noche).','rivals.b_guarantee_title':'Garantía','rivals.b_guarantee_desc':'Si no se alcanza la <em>división objetivo</em>, reembolso proporcional.','rivals.b_addons_title':'Extras','rivals.b_addons_desc':'Prioridad (exprés) y protección de MMR bajo consulta.','rivals.b_payment_title':'Pago','rivals.b_payment_desc':'Presupuesto con la calculadora + cierre por WhatsApp.', 'pc.title_10':'+10 Niveles','pc.feat_10':'Build optimizada incluida','pc.title_20':'+20 Niveles','pc.feat_20':'Actualizaciones por bloque','pc.title_100':'Nível 100','pc.feat_100':'Entrega rápida garantizada','pc.title_120':'Nivel 120 (Full)','pc.feat_120':'Coaching 30 min incluido','pc.cta_120':'Alcanzar 120', 'div.10':'División 10','div.9':'División 9','div.8':'División 8','div.7':'División 7','div.6':'División 6','div.5':'División 5','div.4':'Divisão 4','div.3':'Divisão 3','div.2':'Divisão 2','div.1':'Divisão 1','div.elite':'Divisão Élite', 'fc26.title':'EA SPORTS FC™ 26 — Reserva el tuyo','fc26.subtitle':'Entrega garantizada el día del lanzamiento para PC (EA App).','fc26.std_title':'FC 26 Standard Edition','fc26.ult_title':'FC 26 Ultimate Edition','fc26.early':'Acceso Anticipado','fc26.std_feat':'<li>Juego Base FC 26</li><li>Artículo de Jugador Estrella de Portada en Préstamo (10 partidos)</li><li>2 Elecciones de Jugador Embajador en Préstamo (5 partidos)</li><li>Espacio de PlayStyles Desbloqueado en Clubes</li><li>Puntos de Personalidad de Jugador adicionales</li><li>Entrenador de 5 estrellas disponible en Carrera de Mánager</li>','fc26.ult_feat':'<li>Hasta 7 días de Acceso Anticipado</li><li>4,600 FC Points</li><li>Acceso a la Campaña Nike Ultimate Team™</li><li>Artículo de Jugador de la Campaña Nike UT (24 partidos)</li><li>Uniforme Nike x EA SPORTS FC™ UT</li><li>Artículo de Jugador del TOTW 1 de UT</li><li><strong>Todos los bonus de la Edición Standard</strong></li>', 'testimonials.title':'Lo que dicen nuestros clientes','testimonials.t1_text':'"¡Servicio impecable! Alcanzaron el Rango 1 en WL para mí sin ningún problema. Comunicación excelente durante todo el proceso. ¡Lo recomiendo!"','testimonials.t1_author':'- Juan F., Lisboa','testimonials.t2_text':'"Contraté el boost de Pro Clubs y fue súper rápido. En menos de 24h ya tenía los niveles que necesitaba. Equipo muy profesional."','testimonials.t2_author':'- Miguel P., Madrid','testimonials.t3_text':'"Llevaba semanas atascado en la División 2. Me subieron a Élite en tiempo récord. Muy seguro y fiable."','testimonials.t3_author':'- Carlos S., Oporto', 'testimonials.t4_text':'"Conseguí el Rango 2 sin estrés. El equipo es súper profesional y comunicativo. ¡Lo recomiendo al 100%!"','testimonials.t4_author':'- André G., Faro','testimonials.t5_text':'"Servicio rápido y eficiente. Alcanzaron el Rango 3 para mí e incluso me dieron algunos consejos. ¡Muy bueno!"','testimonials.t5_author':'- Sofía C., Sevilla','testimonials.t6_text':'"Solo necesitaba asegurar las recompensas del Rango 5 y hicieron el trabajo a la perfección. Precio justo y servicio de calidad."','testimonials.t6_author':'- Diogo M., Valencia','testimonials.t7_text':'"Me llevaron de la División 4 a la 1 en dos días. La comunicación fue excelente y el servicio muy seguro. ¡5 estrellas!"','testimonials.t7_author':'- Laura T., Barcelona', 'form.generate_ai':'Generar con IA', 'form.generating':'Generando', 'form.ai_error':'Ocurrió un error al generar el mensaje. Por favor, inténtalo de nuevo.', 'form.ai_prompt_template': 'Actúa como un cliente que contacta con un servicio de boosting para el juego EA FC. Escribe un mensaje corto y amigable en español para reservar el servicio de "{serviceName}". Menciona mi nombre, "{userName}", y pregunta sobre la disponibilidad para empezar.', 'ai_welcome.title': '✨ Genera un Mensaje de Bienvenida con IA', 'ai_welcome.placeholder': 'Introduce tu nombre de jugador...', 'ai_welcome.button': 'Generar', 'ai_welcome.generating': 'Generando...', 'ai_welcome.error': 'No se pudo generar el mensaje. Inténtalo de nuevo.', 'ai_welcome.prompt_template': 'Crea un mensaje de bienvenida muy corto (2-3 frases), motivacional y amigable para un jugador de EA FC 26 llamado "{gamerTag}". El mensaje debe generarse en español y mencionar que los servicios de LuxBoost pueden ayudarle a dominar el juego (Ranks de WL, Rivals, etc.).', 'ai_coach.title':'✨ Pregúntale a nuestro Entrenador de IA', 'ai_coach.subtitle':'¿Tienes alguna duda sobre nuestros servicios, seguridad o cómo funciona todo? ¡Nuestro asistente de IA está listo para ayudarte!', 'ai_coach.placeholder':'Ej: ¿Cuánto tarda una WL?', 'ai_coach.button':'Preguntar a la IA', 'ai_coach.generating':'Generando...', 'ai_coach.thinking':'Pensando...', 'ai_coach.error':'Ocurrió un error al obtener la respuesta. Inténtalo de nuevo.', 'footer.copyright': '© 2025 LuxBoost. Todos los derechos reservados.', 'footer.terms': 'Términos y Condiciones', 'terms.title': 'Términos y Condiciones', 'terms.intro': 'Al contratar cualquier servicio de LuxBoost, usted ("el Cliente") acepta los siguientes términos. LuxBoost ("la Empresa") se compromete a proporcionar servicios de boosting para el juego EA FC 26 en la plataforma de PC.', 'terms.s1_title': '1. Acuerdo de Servicio y Riesgos', 'terms.s1_p1': 'El Cliente reconoce que compartir cuentas infringe los Términos de Servicio de Electronic Arts (EA). La contratación de nuestros servicios se realiza con pleno conocimiento de este riesgo. La Empresa toma todas las precauciones de seguridad posibles (como el uso de VPN), pero no se hace responsable de ninguna acción tomada por EA en la cuenta del Cliente.', 'terms.s2_title': '2. Pago y Depósito', 'terms.s2_p1': 'Se requiere un depósito del 20% del valor total del servicio para programar e iniciar el trabajo. El valor restante debe pagarse inmediatamente después de la finalización del servicio. La opción de seguir el servicio a través de stream puede tener un coste adicional, que debe consultarse previamente.', 'terms.s3_title': '3. Política de Reembolso', 'terms.s3_p1': 'Si el objetivo contratado no se alcanza por responsabilidad de nuestro equipo, se ofrecerá un reembolso proporcional al trabajo no completado. El depósito del 20% no es reembolsable si el Cliente decide cancelar el servicio después de su inicio.', 'terms.s4_title': '4. Responsabilidades del Cliente', 'terms.s4_p1': 'El Cliente debe proporcionar los datos de acceso correctos y asegurarse de que la verificación de inicio de sesión (2FA) esté preparada para proporcionarnos los códigos de acceso. Durante el período del servicio, el Cliente no debe acceder a su cuenta en el modo Ultimate Team para evitar interrupciones, a menos que se haya acordado previamente con nuestro equipo.', 'terms.s5_title': '5. Confidencialidad y Seguridad de la Cuenta', 'terms.s5_p1': 'La Empresa se compromete a no utilizar monedas, jugadores o cualquier otro artículo de la cuenta del Cliente sin autorización previa. Toda la información de la cuenta se trata como confidencial y la comunicación con la lista de amigos del Cliente está estrictamente prohibida.' },
+      en: { 'menu.prices':'Prices','menu.how':'How It Works','menu.faq':'FAQ','menu.book':'Book','menu.contact':'Contact','menu.rivals':'Division Rivals','menu.pc':'Pro Clubs','menu.fc26':'FC 26', 'menu.terms':'Terms', 'hero.title':'WL Made Easy • <span class="accent">Ranks 1–5, Rivals & Pro Clubs</span>', 'hero.lead':'Professional services for <strong>FC 26 (PC)</strong> in ES/PT/EN. Local VPN, screenshots/stream, and clear timelines.', 'hero.ctaPricing':'See Prices','hero.ctaBook':'Book Now','hero.trust1':'✅ Guaranteed wins in the Weekend League (Ranks 1–5): achieve top results stress-free.','hero.trust2':'✅ Optimized teams and builds: always play with the perfect strategy for every match.','hero.trust3':'✅ Exclusive coaching: learn techniques and secrets directly from professional players.','hero.trust4':'✅ VIP support and immediate response: fast and personalized service via WhatsApp/Telegram.','hero.badge':'Rank 1 WL', 'pricing.title':'Prices — Weekend League (Champions Finals)','pricing.subtitle':'Book via WhatsApp or <strong>add to cart</strong>.', 'pricing.wlFeat1':'Guaranteed 18+ wins','pricing.wlFeat2':'VPN + screenshots/stream','pricing.common1':'Delivery same weekend','pricing.common2':'Result screenshots','pricing.wl_feat_guarantee':'Partial guarantee','pricing.full':'Full', 'pricing.pc':'Pro Clubs (up to level 120)','pricing.best':'Most popular', 'pricing.wl_r1_title':'WL Rank 1','pricing.wl_r2_title':'WL Rank 2','pricing.wl_r3_title':'WL Rank 3','pricing.wl_r4_title':'WL Rank 4','pricing.wl_r5_title':'WL Rank 5', 'pricing.rewards_r1':'Rank 1 Rewards','pricing.rewards_r2':'Rank 2 Rewards','pricing.rewards_r3':'Rank 3 Rewards','pricing.rewards_r4':'Rank 4 Rewards','pricing.rewards_r5':'Rank 5 Rewards', 'how.title':'How It Works','how.s1':'<strong>Booking:</strong> Contact us via WhatsApp/Telegram to align on your goal and schedule.','how.s2':'<strong>Security:</strong> We use a local VPN (ES/PT) + 2FA. Screenshots or streaming are available upon request.','how.s3':'<strong>Execution:</strong> We play in blocks and report our progress every step of the way.','how.s4':'<strong>Delivery:</strong> We confirm the rewards/levels are achieved. A partial refund policy is in place.', 'faq.title':'FAQ','faq.q1':'Is it safe?','faq.a1':'We use a local VPN and best practices. Account sharing violates the terms of service; please be aware of the risks.','faq.q2':'How long does a WL take?','faq.a2':'On average, 6–8 hours. We schedule playing blocks according to your availability.','q3':'Can I track the progress?','faq.a3':'Yes. We provide screenshots per block of games, and streaming is available on request.','faq.q4':'Do you use glitches or external software?','faq.a4':'No. Everything is done legitimately, with no exploits or third-party programs.', 'faq.q5':'❓ How does payment work?','faq.a5':'At the beginning of the service, 20% of the contracted amount is charged as a deposit. After the complete conclusion of the service, the client pays the remaining amount. If you wish to follow the service in real-time via stream (Discord or Twitch), you must consult the additional cost for this option beforehand.', 'contact.title':'Book Now','contact.lead':'Fast reply, European time (CET/CEST).','contact.whats':'Open Chat','contact.telegram':'✈️ Telegram:','contact.email':'📧 Email:', 'cart.title':'Cart','cart.total':'Total:','cart.checkout':'Checkout via WhatsApp','cart.clear':'Clear Cart','cart.empty':'Your cart is empty.', 'cta.book':'Book', 'cta.add':'Add to Cart', 'form.name':'Name', 'form.handle':'Contact (WhatsApp or Telegram)', 'form.service':'Service', 'form.msg':'Message', 'form.submit':'Send Request', 'form.name_ph':'Your name','form.handle_ph':'@username or +34…','form.msg_ph':'Schedules, goals…','form.s_wl1':'WL Rank 1','form.s_wl2':'WL Rank 2','form.s_wl3':'WL Rank 3','form.s_wl4':'WL Rank 4','form.s_wl5':'WL Rank 5','form.s_rivals':'Rivals Boost (Division)','form.s_pc10':'Pro Clubs +10 Levels','form.s_pc20':'Pro Clubs +20 Levels','form.s_pc100':'Pro Clubs Level 100','form.s_pc120':'Pro Clubs Level 120', 'rivals.title':'Division Rivals — Boosting Calculator','rivals.current':'Current Division','rivals.target':'Target Division','rivals.result':'Result','rivals.steps':'Divisions to climb:','rivals.price':'Estimated price:','rivals.note':'Base rate: <strong>€10</strong> per division (<strong>€30</strong> from Div 1 to Elite).','rivals.add':'Add to Cart','rivals.book':'Book via WhatsApp','rivals.benefits': 'Benefits of Our Service', 'rivals.b_sec_title':'Security','rivals.b_sec_desc':'Local VPN (ES/PT) + 2FA; we only play in pre-arranged sessions.','rivals.b_comm_title':'Communication','rivals.b_comm_desc':'Block-by-block screenshots via WhatsApp/Telegram and streaming option.','rivals.b_deadlines_title':'Clear Deadlines','rivals.b_deadlines_desc':'Scheduling according to your agenda (day/night slots).','rivals.b_guarantee_title':'Guarantee','rivals.b_guarantee_desc':'If the <em>target division</em> is not met, a proportional refund is issued.','rivals.b_addons_title':'Add-ons','rivals.b_addons_desc':'Priority service (express) and MMR protection available upon request.','rivals.b_payment_title':'Payment','rivals.b_payment_desc':'Quote via the calculator + finalization on WhatsApp.', 'pc.title_10':'+10 Levels','pc.feat_10':'Optimized build included','pc.title_20':'+20 Levels','pc.feat_20':'Block-by-block updates','pc.title_100':'Level 100','pc.feat_100':'Fast delivery guaranteed','pc.title_120':'Level 120 (Full)','pc.feat_120':'30-min coaching included','pc.cta_120':'Get to 120', 'div.10':'Division 10','div.9':'Division 9','div.8':'Division 8','div.7':'Division 7','div.6':'Division 6','div.5':'Division 5','div.4':'Division 4','div.3':'Division 3','div.2':'Division 2','div.1':'Division 1','div.elite':'Elite Division', 'fc26.title':'EA SPORTS FC™ 26 — Pre-order Yours','fc26.subtitle':'Guaranteed delivery on launch day for PC (EA App).','fc26.std_title':'FC 26 Standard Edition','fc26.ult_title':'FC 26 Ultimate Edition','fc26.early':'Early Access','fc26.std_feat':'<li>FC 26 Base Game</li><li>Cover Star Loan Player Item (10 matches)</li><li>2 Ambassador Loan Player Pick Items (5 matches)</li><li>Unlocked PlayStyles Slot in Clubs</li><li>Additional Player Personality Points in Player Career</li><li>5-Star Coach available for hire in Manager Career</li>','fc26.ult_feat':'<li>Up to 7 Days Early Access</li><li>4,600 FC Points</li><li>Access to Nike Ultimate Team™ Campaign</li><li>Nike Ultimate Team™ Campaign Loan Player Item (24 matches)</li><li>Nike x EA SPORTS FC™ Ultimate Team™ Kit</li><li>Ultimate Team™ TOTW 1 Player Item</li><li><strong>All Standard Edition bonuses</strong></li>', 'testimonials.title':'What Our Clients Say','testimonials.t1_text':'"Impeccable service! They reached Rank 1 in WL for me without any issues. Excellent communication throughout the process. Highly recommend!"','testimonials.t1_author':'- John F., Lisbon','testimonials.t2_text':'"I hired the Pro Clubs boost and it was super fast. In less than 24 hours, I had the levels I needed. Very professional team."','testimonials.t2_author':'- Michael P., Madrid','testimonials.t3_text':'"I was stuck in Division 2 for weeks. They got me to Elite in record time. Very safe and reliable."','testimonials.t3_author':'- Charles S., Porto', 'testimonials.t4_text':'"Got Rank 2 without any stress. The team is super professional and communicative. 100% recommend!"','testimonials.t4_author':'- Andre G., Faro','testimonials.t5_text':'"Quick and efficient service. They achieved Rank 3 for me and even gave me some tips. Very good!"','testimonials.t5_author':'- Sofia C., Seville','testimonials.t6_text':'"I just needed to secure the Rank 5 rewards, and they did the job perfectly. Fair price and quality service."','testimonials.t6_author':'- Diogo M., Valencia','testimonials.t7_text':'"They took me from Division 4 to 1 in two days. Communication was excellent, and the service was very secure. 5 stars!"','testimonials.t7_author':'- Laura T., Barcelona', 'form.generate_ai':'Generate with AI', 'form.generating':'Generating', 'form.ai_error':'An error occurred while generating the message. Please try again.', 'form.ai_prompt_template': 'Act as a customer contacting a boosting service for the game EA FC. Write a short and friendly message in English to book the "{serviceName}" service. Mention my name, "{userName}", and ask about availability to start.', 'ai_welcome.title': '✨ Generate a Welcome Message with AI', 'ai_welcome.placeholder': 'Enter your gamer tag...', 'ai_welcome.button': 'Generate', 'ai_welcome.generating': 'Generating...', 'ai_welcome.error': 'Could not generate message. Please try again.', 'ai_welcome.prompt_template': 'Create a very short (2-3 sentences), motivational, and friendly welcome message for an EA FC 26 player named "{gamerTag}". The message should be generated in English and mention that LuxBoost services can help them dominate the game (WL Ranks, Rivals, etc.).', 'ai_coach.title':'✨ Ask our AI Coach', 'ai_coach.subtitle':'Have a question about our services, security, or how it all works? Our AI assistant is ready to help!', 'ai_coach.placeholder':'Ex: How long does a WL take?', 'ai_coach.button':'Ask AI', 'ai_coach.generating':'Generating...', 'ai_coach.thinking':'Thinking...', 'ai_coach.error':'An error occurred while getting the answer. Please try again.', 'footer.copyright': '© 2025 LuxBoost. All rights reserved.', 'footer.terms': 'Terms and Conditions', 'terms.title': 'Terms & Conditions', 'terms.intro': 'By hiring any service from LuxBoost, you ("the Client") agree to the following terms. LuxBoost ("the Company") is committed to providing boosting services for the EA FC 26 game on the PC platform.', 'terms.s1_title': '1. Service Agreement and Risks', 'terms.s1_p1': 'The Client acknowledges that account sharing violates the Terms of Service of Electronic Arts (EA). Hiring our services is done with full awareness of this risk. The Company takes all possible security precautions (such as using a VPN), but is not responsible for any actions taken by EA on the Client\'s account.', 'terms.s2_title': '2. Payment and Deposit', 'terms.s2_p1': 'A deposit of 20% of the total service value is required to schedule and start the work. The remaining amount must be paid immediately upon completion of the service. The option to follow the service via stream may have an additional cost, which should be consulted beforehand.', 'terms.s3_title': '3. Refund Policy', 'terms.s3_p1': 'If the contracted goal is not achieved due to our team\'s responsibility, a proportional refund for the uncompleted work will be offered. The 20% deposit is non-refundable if the Client decides to cancel the service after it has started.', 'terms.s4_title': '4. Client Responsibilities', 'terms.s4_p1': 'The Client must provide the correct login details and ensure that the login verification (2FA) is ready to provide us with the access codes. During the service period, the Client should not access their account in Ultimate Team mode to avoid interruptions, unless previously arranged with our team.', 'terms.s5_title': '5. Confidentiality and Account Security', 'terms.s5_p1': 'The Company undertakes not to use coins, players, or any other items from the Client\'s account without prior authorization. All account information is treated as confidential, and communication with the Client\'s friends list is strictly prohibited.' }
+    };
+
+    const $=(s,r=document)=>r.querySelector(s); const $$=(s,r=document)=>[...r.querySelectorAll(s)];
+    let CART = JSON.parse(localStorage.getItem('luxboost.cart')||'[]');
+
+    document.addEventListener('DOMContentLoaded',()=>{
+      const wa = `https://wa.me/${WHATSAPP_NUM}`;
+      $$('#wa-link, #wa-top, #boost-wa').forEach(el => el.href = wa);
+      $('#ig-link').href = `https://instagram.com/${INSTAGRAM_USER}`;
+      $('#ig-top').href = `https://instagram.com/${INSTAGRAM_USER}`;
+
+      const sel=$('#lang-select'); const saved=localStorage.getItem('luxboost.lang');
+      sel.value = saved && I18N[saved] ? saved : 'pt'; applyLang(sel.value);
+      sel.addEventListener('change',()=>{applyLang(sel.value); localStorage.setItem('luxboost.lang', sel.value)});
+
+      renderCart();
+      setupBoostCalc();
+      setupTestimonialSlider();
+    });
+
+    function applyLang(lang){ const d=I18N[lang]||I18N.pt; $$('[data-i18n]').forEach(n=>{const k=n.getAttribute('data-i18n'); if(d[k]!==undefined) n.innerHTML=d[k]}); $$('[data-i18n-placeholder]').forEach(n=>{const k=n.getAttribute('data-i18n-placeholder'); if(d[k]!==undefined) n.placeholder=d[k]}); document.documentElement.lang=lang; renderCart(); }
+
+    window.book = (el)=>{ const L=I18N[document.documentElement.lang]||I18N.pt; const key=el.getAttribute('data-wa-key')||''; const serv=L[key]||'Serviço'; const p=el.closest('.card').querySelector('.price')?.textContent.trim()||''; const txt=`Olá! Quero reservar: ${serv} — Preço: ${p}. Minha disponibilidade: `; window.open(`https://wa.me/${WHATSAPP_NUM}?text=${encodeURIComponent(txt)}`,'_blank','noopener'); return false };
+    
+    // ==== Carrinho ====
+    function persist(){ localStorage.setItem('luxboost.cart', JSON.stringify(CART)) }
+    function addToCart(key,price){ const L=I18N[document.documentElement.lang]||I18N.pt; const name=L[key]||key; const it=CART.find(i=>i.name===name&&i.price===price); if(it) it.qty++; else CART.push({name,price,qty:1}); persist(); renderCart(true) }
+    function removeFromCart(i){ CART.splice(i,1); persist(); renderCart() }
+    function changeQty(i,d){ CART[i].qty=Math.max(1,CART[i].qty+d); persist(); renderCart() }
+    function clearCart(){ CART=[]; persist(); renderCart() }
+    function toggleCart(force){ const dr=$('#cart'), bd=$('#backdrop'); const open = force!==undefined ? force : !dr.classList.contains('open'); dr.classList.toggle('open',open); if(bd) bd.hidden=!open }
+    function renderCart(openOnAdd=false){ const w=$('#cart-items'); w.innerHTML=''; const L=I18N[document.documentElement.lang]||I18N.pt; if(!CART.length){ const p=document.createElement('p'); p.className='muted'; p.textContent=L['cart.empty']; w.appendChild(p) } else { CART.forEach((it,idx)=>{ const row=document.createElement('div'); row.className='item'; row.innerHTML=`<div><div><strong>${it.name}</strong></div><div class="muted">${it.price.toFixed(2)} €</div></div><div class="qty"><button onclick="changeQty(${idx},-1)" aria-label="Diminuir quantidade de ${it.name}">−</button><span>${it.qty}</span><button onclick="changeQty(${idx},1)" aria-label="Aumentar quantidade de ${it.name}">+</button><button onclick="removeFromCart(${idx})" aria-label="Remover ${it.name} do carrinho">✖</button></div>`; w.appendChild(row) }) } const total=CART.reduce((s,i)=>s+i.price*i.qty,0); $('#cart-total').textContent=total.toFixed(2)+' €'; $('#cart-count').textContent=CART.reduce((s,i)=>s+i.qty,0); if(openOnAdd) toggleCart(true) }
+    function checkoutWA(){ if(!CART.length) return; const lines=CART.map(i=>`• ${i.name} x${i.qty} — ${(i.price*i.qty).toFixed(2)} €`).join('%0A'); const total=CART.reduce((s,i)=>s+i.price*i.qty,0); window.open(`https://wa.me/${WHATSAPP_NUM}?text=Olá! Quero finalizar meu pedido:%0A%0A${lines}%0A%0ATotal: ${total.toFixed(2)} €`,'_blank','noopener') }
+
+    // ==== Calculadora de Rivals ====
+    const PRICE_PER_DIV = 10;
+    const DIV_MAP = {'elite':0,'1':1,'2':2,'3':3,'4':4,'5':5,'6':6,'7':7,'8':8,'9':9,'10':10};
+    function calcBoost(curVal, tgtVal){
+      const cur = DIV_MAP[curVal], tgt = DIV_MAP[tgtVal];
+      if(cur === undefined || tgt === undefined || cur <= tgt) return {steps:0, price:0};
+      
+      const steps = cur - tgt;
+      let price = 0;
+
+      if (tgtVal === 'elite' && curVal === '1') {
+        price = 30;
+      } else if (tgtVal === 'elite') {
+        const normalSteps = Math.max(0, cur - DIV_MAP['1']);
+        price = (normalSteps * PRICE_PER_DIV) + 30;
+      }
+       else {
+        price = steps * PRICE_PER_DIV;
+      }
+      
+      return {steps, price};
+    }
+    function setupBoostCalc(){
+      const curSel = $('#cur-div'); const tgtSel = $('#target-div'); const outSteps = $('#boost-count'); const outPrice = $('#boost-price'); const btnAdd = $('#boost-add'); const btnWa  = $('#boost-wa');
+      const run = ()=>{
+        const L=I18N[document.documentElement.lang]||I18N.pt;
+        const {steps, price} = calcBoost(curSel.value, tgtSel.value);
+        outSteps.textContent = steps;
+        outPrice.textContent = price.toFixed(2) + ' €';
+        btnAdd.disabled = steps === 0;
+        const curOptText = curSel.options[curSel.selectedIndex] ? curSel.options[curSel.selectedIndex].text : curSel.value;
+        const tgtOptText = tgtSel.options[tgtSel.selectedIndex] ? tgtSel.options[tgtSel.selectedIndex].text : tgtSel.value;
+        const msg = `Olá, quero reservar um boost de ${steps} divisões no Rivals (${curOptText} -> ${tgtOptText}), preço estimado de ${price}€.`;
+        btnWa.href = `https://wa.me/${WHATSAPP_NUM}?text=${encodeURIComponent(msg)}`;
+        btnAdd.onclick = () => {
+          if (steps > 0) {
+            const cartItemName = `${L['form.s_rivals']} (${steps} Divs)`;
+            const existingItem = CART.find(item => item.name.startsWith(L['form.s_rivals']));
+            if(existingItem) {
+              existingItem.name = cartItemName;
+              existingItem.price = price;
+            } else {
+              CART.push({ name: cartItemName, price: price, qty: 1 });
+            }
+            persist();
+            renderCart(true);
+          }
+        };
+      };
+      [curSel, tgtSel].forEach(sel => sel.addEventListener('change', run));
+      run();
+    }
+
+    // ==== Testimonial Slider ====
+    function setupTestimonialSlider() {
+      const slider = $('.testimonial-slider');
+      const prevBtn = $('.slider-btn.prev');
+      const nextBtn = $('.slider-btn.next');
+      if (!slider || !prevBtn || !nextBtn) return;
+
+      nextBtn.addEventListener('click', () => {
+          const cardWidth = slider.querySelector('.card').offsetWidth;
+          slider.scrollBy({ left: cardWidth + 18, behavior: 'smooth' }); // card width + gap
+      });
+
+      prevBtn.addEventListener('click', () => {
+          const cardWidth = slider.querySelector('.card').offsetWidth;
+          slider.scrollBy({ left: -(cardWidth + 18), behavior: 'smooth' });
+      });
+    }
+
+    // ==== Gemini AI Message Generator ====
+    async function generateMessage() {
+        const btn = $('#generate-msg-btn');
+        const msgArea = $('#msg');
+        const L = I18N[document.documentElement.lang] || I18N.pt;
+
+        const userName = $('#nome').value.trim();
+        if (!userName) {
+            const nameInput = $('#nome');
+            nameInput.focus();
+            nameInput.style.outline = '2px solid var(--danger)';
+            setTimeout(() => { nameInput.style.outline = 'none'; }, 2500);
+            return;
+        }
+        
+        const serviceName = $('#servico').selectedOptions[0].text;
+        const promptTemplate = L['form.ai_prompt_template'];
+        const prompt = promptTemplate.replace('{serviceName}', serviceName).replace('{userName}', userName);
+
+        btn.disabled = true;
+        btn.classList.add('loading');
+        const originalBtnText = btn.querySelector('span').innerHTML;
+        btn.querySelector('span').innerHTML = L['form.generating'];
+
+        try {
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${GEMINI_API_KEY}`;
+            const payload = { contents: [{ parts: [{ text: prompt }] }] };
+            const response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+
+            if (!response.ok) { throw new Error(`API Error: ${response.status}`); }
+
+            const result = await response.json();
+            const generatedText = result.candidates?.[0]?.content?.parts?.[0]?.text;
+
+            if (generatedText) {
+                msgArea.value = generatedText.trim();
+                msgArea.dispatchEvent(new Event('input'));
+            } else {
+                throw new Error('No content generated.');
+            }
+        } catch (error) {
+            console.error("Gemini API call failed:", error);
+            msgArea.value = L['form.ai_error'];
+        } finally {
+            btn.disabled = false;
+            btn.classList.remove('loading');
+            btn.querySelector('span').innerHTML = originalBtnText;
+        }
+    }
+    
+    // ==== Gemini AI Welcome Generator ====
+    async function generateWelcomeMessage() {
+        const btn = $('#generate-welcome-btn');
+        const outputArea = $('#welcome-output');
+        const L = I18N[document.documentElement.lang] || I18N.pt;
+
+        const gamerTag = $('#gamer-tag').value.trim();
+        if (!gamerTag) {
+            const tagInput = $('#gamer-tag');
+            tagInput.focus();
+            tagInput.style.outline = '2px solid var(--danger)';
+            setTimeout(() => { tagInput.style.outline = 'none'; }, 2500);
+            return;
+        }
+
+        const promptTemplate = L['ai_welcome.prompt_template'];
+        const prompt = promptTemplate.replace('{gamerTag}', gamerTag);
+
+        btn.disabled = true;
+        btn.classList.add('loading');
+        const originalBtnText = btn.querySelector('span').innerHTML;
+        btn.querySelector('span').innerHTML = L['ai_welcome.generating'];
+        outputArea.textContent = '';
+        outputArea.style.color = 'var(--mut)';
+
+        try {
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${GEMINI_API_KEY}`;
+            const payload = { contents: [{ parts: [{ text: prompt }] }] };
+            const response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+
+            if (!response.ok) { throw new Error(`API Error: ${response.status}`); }
+
+            const result = await response.json();
+            const generatedText = result.candidates?.[0]?.content?.parts?.[0]?.text;
+
+            if (generatedText) {
+                outputArea.textContent = generatedText.trim();
+                outputArea.style.color = 'var(--ink)';
+            } else {
+                throw new Error('No content generated.');
+            }
+        } catch (error) {
+            console.error("Gemini API call for welcome message failed:", error);
+            outputArea.textContent = L['ai_welcome.error'];
+            outputArea.style.color = 'var(--danger)';
+        } finally {
+            btn.disabled = false;
+            btn.classList.remove('loading');
+            btn.querySelector('span').innerHTML = originalBtnText;
+        }
+    }
+
+    // ==== Gemini AI Coach ====
+    async function askAICoach() {
+        const btn = $('#ask-ai-btn');
+        const questionArea = $('#ai-coach-question');
+        const answerBox = $('#ai-coach-answer');
+        const outputArea = $('#ai-coach-output');
+        const L = I18N[document.documentElement.lang] || I18N.pt;
+
+        const userQuestion = questionArea.value.trim();
+        if (!userQuestion) {
+            questionArea.focus();
+            questionArea.style.outline = '2px solid var(--danger)';
+            setTimeout(() => { questionArea.style.outline = 'none'; }, 2500);
+            return;
+        }
+
+        const siteContext = `
+            You are "LuxBoost AI Coach," a friendly and expert assistant for a boosting service for the game EA FC 26 on the PC platform.
+            Your company is called LuxBoost.
+            Services include:
+            - Weekend League (WL) Ranks 1 to 5.
+            - Division Rivals Boost (climbing divisions).
+            - Pro Clubs leveling (up to level 120).
+            - Selling the FC 26 game (Standard and Ultimate Edition).
+
+            Important information:
+            - Security: We use a local VPN (for Spain/Portugal) and 2FA.
+            - Payment: 20% deposit is required, with the rest paid upon completion. Streaming services cost extra.
+            - Main contact method: WhatsApp.
+
+            Answer the user's question concisely, friendly, and helpfully, based on this context. Maintain a professional yet approachable tone. Respond in the language of the user's question.
+        `;
+        const prompt = `${siteContext}\n\nUser's Question: "${userQuestion}"\n\nAnswer:`;
+
+        btn.disabled = true;
+        btn.classList.add('loading');
+        const originalBtnText = btn.querySelector('span').innerHTML;
+        btn.querySelector('span').innerHTML = L['ai_coach.generating'];
+        answerBox.style.display = 'block';
+        outputArea.textContent = L['ai_coach.thinking'];
+        outputArea.style.color = 'var(--mut)';
+
+        try {
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${GEMINI_API_KEY}`;
+            const payload = { contents: [{ parts: [{ text: prompt }] }] };
+            const response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+
+            if (!response.ok) { throw new Error(`API Error: ${response.status}`); }
+
+            const result = await response.json();
+            const generatedText = result.candidates?.[0]?.content?.parts?.[0]?.text;
+
+            if (generatedText) {
+                let htmlText = generatedText.trim().replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+                htmlText = htmlText.replace(/\*/g, ''); // Remove single asterisks if any
+                htmlText = htmlText.replace(/\n/g, '<br>');
+                outputArea.innerHTML = htmlText;
+                outputArea.style.color = 'var(--ink)';
+            } else {
+                throw new Error('No content generated.');
+            }
+        } catch (error) {
+            console.error("Gemini AI Coach failed:", error);
+            outputArea.textContent = L['ai_coach.error'];
+            outputArea.style.color = 'var(--danger)';
+        } finally {
+            btn.disabled = false;
+            btn.classList.remove('loading');
+            btn.querySelector('span').innerHTML = originalBtnText;
+        }
+    }
+
+
+    function sendLead(evt){
+        evt.preventDefault();
+        const L=I18N[document.documentElement.lang]||I18N.pt;
+        const name = $('#nome').value;
+        const handle = $('#handle').value;
+        const service = $('#servico').selectedOptions[0].text;
+        const msg = $('#msg').value;
+        const text = `Novo Pedido do Site:\n\n*${L['form.name']}:* ${name}\n*${L['form.handle']}:* ${handle}\n*${L['form.service']}:* ${service}\n*${L['form.msg']}:*\n${msg}`;
+        window.open(`https://wa.me/${WHATSAPP_NUM}?text=${encodeURIComponent(text)}`, '_blank', 'noopener');
+        return false;
+    }
+  </script>
+</body>
+</html>
+
