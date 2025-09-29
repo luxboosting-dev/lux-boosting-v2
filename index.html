@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="pt">
+<html lang="es">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -592,7 +592,7 @@
               <img src="https://i.imgur.com/NyZOdND.jpeg" alt="Capa do FC 26 Offline Edition" class="card-img">
               <div class="card-body">
                 <h4 data-i18n="fc26.offline_title">FC 26 Offline Edition</h4>
-                <div class="price" data-price="10">10 €</div>
+                <div class="price" data-price="12.99">12.99 €</div>
                 <ul class="feat" data-i18n="fc26.offline_feat" style="list-style:disc; padding-left:20px; font-size:13px;">
                    <li>Jogo Base (Modos Offline)</li>
                    <li>Acesso total a equipas e ligas</li>
@@ -601,7 +601,7 @@
               </div>
               <div class="actions">
                 <a class="btn btn-primary" href="#" data-wa-key="fc26.offline_title" onclick="return book(this)" data-i18n="cta.book">reservar</a>
-                <button class="btn" onclick="addToCart('fc26.offline_title', 10)" data-i18n="cta.add">adicionar</button>
+                <button class="btn" onclick="addToCart('fc26.offline_title', 12.99)" data-i18n="cta.add">adicionar</button>
               </div>
             </article>
           </div>
@@ -1031,7 +1031,7 @@
       $('#ig-top').href = `https://instagram.com/${INSTAGRAM_USER}`;
 
       const sel=$('#lang-select'); const saved=localStorage.getItem('luxboost.lang');
-      sel.value = saved && I18N[saved] ? saved : 'pt'; applyLang(sel.value);
+      sel.value = saved && I18N[saved] ? saved : 'es'; applyLang(sel.value);
       sel.addEventListener('change',()=>{applyLang(sel.value); localStorage.setItem('luxboost.lang', sel.value)});
 
       renderCart();
@@ -1421,6 +1421,8 @@
   </script>
 </body>
 </html>
+
+
 
 
 
